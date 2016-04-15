@@ -30,7 +30,7 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 
     private static final int GAME_TYPE_DEFAULT = 10;
     private static int mGameType = GAME_TYPE_DEFAULT;
-    private float padding_top = 0, padding_left = 0;
+    private float paddingTop = 0, paddingLeft = 0;
     private float blockSize;
 
     /**
@@ -39,9 +39,6 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
     private int mScore = 0, mBestScore = 0;
     private onGameListener mGameListener;
 
-    public void setOnGameListener(onGameListener listener) {
-        mGameListener = listener;
-    }
 
     /**
      * 待选图案
@@ -56,7 +53,7 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
     private int baseBlockSizeBig;
 
 
-    private Block[][] blocks;
+    private Block[][] mBlockStore;
 
     //SurfaceHolder用于控制SurfaceView的大小、格式等，用于监听SurfaceView的状态。
     private SurfaceHolder mSurfaceHolder;
@@ -102,7 +99,7 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
             initBlocks(sudoku);
         }
         //若读取进度失败，开始新游戏
-        if (blocks == null) {
+        if (mBlockStore == null) {
             mScore = 0;
             initBlocks();
         }
@@ -118,7 +115,7 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
             return;
         }
 
-        blocks = new Block[mGameType][mGameType];
+        mBlockStore = new Block[mGameType][mGameType];
         int x, y;
         for (int i = 0; i < tmp.length; i++) {
             x = i % mGameType;
@@ -126,14 +123,18 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
             Block tmpBlock = new Block(getContext());
             String[] tmp2 = tmp[i].split(",");
             if (tmp2.length != 2) {
-                blocks = null;
+                mBlockStore = null;
                 return;
             }
             tmpBlock.mData = Integer.valueOf(tmp2[0]);
             tmpBlock.mColor = Integer.valueOf(tmp2[1]);
 
-            blocks[y][x] = tmpBlock;
+            mBlockStore[y][x] = tmpBlock;
         }
+    }
+
+    public void setOnGameListener(onGameListener listener) {
+        mGameListener = listener;
     }
 
     public void save() {
@@ -150,9 +151,9 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
         for (int i = 0; i < mGameType; i++) {
             for (int j = 0; j < mGameType; j++) {
                 if (i == mGameType && j == mGameType) {
-                    tmp.append(blocks[i][j].mData).append(",").append(blocks[i][j].mColor);
+                    tmp.append(mBlockStore[i][j].mData).append(",").append(mBlockStore[i][j].mColor);
                 } else {
-                    tmp.append(blocks[i][j].mData).append(",").append(blocks[i][j].mColor).append(";");
+                    tmp.append(mBlockStore[i][j].mData).append(",").append(mBlockStore[i][j].mColor).append(";");
                 }
             }
         }
@@ -161,10 +162,10 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 
 
     private void initBlocks() {
-        blocks = new Block[mGameType][mGameType];
+        mBlockStore = new Block[mGameType][mGameType];
         for (int i = 0; i < mGameType; i++) {
             for (int j = 0; j < mGameType; j++) {
-                blocks[j][i] = new Block(mContext);
+                mBlockStore[j][i] = new Block(mContext);
             }
         }
     }
@@ -199,8 +200,8 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
         baseBlockSizeSmall = (int) (blockSize * baseBlockPercentageSmall);
         baseBlockSizeBig = (int) (blockSize * baseBlockPercentageBig);
 
-        padding_top = (screenHeight - mGameType * blockSize - BaseBlockData.ROW_NUM * baseBlockSizeSmall) / 2;
-        padding_left = (screenWidth - mGameType * blockSize) / 2;
+        paddingTop = (screenHeight - mGameType * blockSize - BaseBlockData.ROW_NUM * baseBlockSizeSmall) / 2;
+        paddingLeft = (screenWidth - mGameType * blockSize) / 2;
 
         myDraw();
 
@@ -263,7 +264,7 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
     private void drawRoundSquare(Canvas canvas, float x, float y, float halfSideLength, Paint paint) {
         halfSideLength -= 2;
         RectF rectF = new RectF(x - halfSideLength, y - halfSideLength, x + halfSideLength, y + halfSideLength);
-        canvas.drawRoundRect(rectF, 6, 6, paint);
+        canvas.drawRoundRect(rectF, halfSideLength / 2.5f, halfSideLength / 2.5f, paint);
     }
 
     /**
@@ -274,8 +275,14 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
     private void drawBlocks(Canvas canvas) {
         for (int i = 0; i < mGameType; i++) {
             for (int j = 0; j < mGameType; j++) {
-                mBlockPaint.setColor(blocks[i][j].mColor);
-                drawRoundSquare(canvas, padding_left + (j + 0.5f) * blockSize, padding_top + (i + 0.5f) * blockSize,
+                Block block = mBlockStore[i][j];
+                mBlockPaint.setColor(block.mColor);
+                if (block.isTempColor) {
+                    mBlockPaint.setAlpha(160);
+                } else {
+                    mBlockPaint.setAlpha(255);
+                }
+                drawRoundSquare(canvas, paddingLeft + (j + 0.5f) * blockSize, paddingTop + (i + 0.5f) * blockSize,
                         blockSize / 2, mBlockPaint);
             }
         }
@@ -305,8 +312,8 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
             return;
         }
         for (int i = 0; i < mBaseBlockNumber; i++) {
-            float x = padding_left + i * blockSize * BaseBlockData.ROW_NUM;
-            float y = padding_top + baseBlockSizeSmall + mGameType * blockSize;
+            float x = paddingLeft + i * blockSize * BaseBlockData.ROW_NUM;
+            float y = paddingTop + baseBlockSizeSmall + mGameType * blockSize;
 
             if (isChecked && i == mBaseBlockChecked) {
                 drawBaseBlock(canvas, eventX - differentX, eventY - differentY, data[i],
@@ -361,19 +368,13 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
         eventY = event.getY();
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
 
-            for (int i = 0; i < mGameType; i++) {
-                Log.d(TAG, "i = " + i + "|||" + blocks[i][0].mData + blocks[i][1].mData + blocks[i][2].mData +
-                        blocks[i][3].mData + blocks[i][4].mData + blocks[i][5].mData + blocks[i][6].mData +
-                        blocks[i][7].mData + blocks[i][8].mData + blocks[i][9].mData);
-            }
-
-            float minY = (padding_top + baseBlockSizeSmall + mGameType * blockSize);
-            float maxY = (padding_top + baseBlockSizeSmall + mGameType * blockSize
+            float minY = (paddingTop + baseBlockSizeSmall + mGameType * blockSize);
+            float maxY = (paddingTop + baseBlockSizeSmall + mGameType * blockSize
                     + baseBlockSizeSmall * BaseBlockData.ROW_NUM);
             if (eventY >= minY && eventY <= maxY) {
                 for (int i = 0; i < mBaseBlockNumber; i++) {
-                    float minX = padding_left + i * blockSize * BaseBlockData.ROW_NUM;
-                    float maxX = padding_left + i * blockSize * BaseBlockData.ROW_NUM + baseBlockSizeSmall *
+                    float minX = paddingLeft + i * blockSize * BaseBlockData.ROW_NUM;
+                    float maxX = paddingLeft + i * blockSize * BaseBlockData.ROW_NUM + baseBlockSizeSmall *
                             BaseBlockData.ROW_NUM;
                     if (eventX >= minX && eventX <= maxX) {
                         mBaseBlockChecked = i;
@@ -384,22 +385,31 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
             }
         } else if (event.getAction() == MotionEvent.ACTION_UP) {
             if (mBaseBlockChecked >= 0) {
-                int numX = (int) ((eventX - differentX - padding_left + blockSize * 0.5) / blockSize);
-                int numY = (int) ((eventY - differentY - padding_top + blockSize * 0.5) / blockSize);
-                Log.d("CPXIAO", "numX=" + numX + ",numY=" + numY);
+                int numX = (int) ((eventX - differentX - paddingLeft + blockSize * 0.5) / blockSize);
+                int numY = (int) ((eventY - differentY - paddingTop + blockSize * 0.5) / blockSize);
 
                 if (isCanBePlace(numX, numY, mBaseBlockDataArray[mBaseBlockChecked])) {
                     //放置成功，更新数据
                     mScore += mBaseBlockDataArray[mBaseBlockChecked].baseScore;
-                    updateBlocks(numX, numY);
+                    updateBlocks(numX, numY, true);
                     //更新待选块数据
                     updateBaseBlock();
                     mBaseBlockChecked = -1;
-                    //					Log.d(TAG, "updateBlocks == true");
                 } else {
                     //baseBlock回归原处
                     mBaseBlockChecked = -1;
-                    //					Log.d(TAG, "updateBlocks == false");
+                }
+            }
+        } else if (event.getAction() == MotionEvent.ACTION_MOVE) {
+            if (mBaseBlockChecked >= 0) {
+                int numX = (int) ((eventX - differentX - paddingLeft + blockSize * 0.5) / blockSize);
+                int numY = (int) ((eventY - differentY - paddingTop + blockSize * 0.5) / blockSize);
+
+                if (isCanBePlace(numX, numY, mBaseBlockDataArray[mBaseBlockChecked])) {
+                    //放置成功，更新数据
+                    updateBlocks(numX, numY, false);
+                } else {
+                    clearTempColor();
                 }
             }
         }
@@ -419,16 +429,36 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
     }
 
 
-    private boolean updateBlocks(int x, int y) {
+    private boolean updateBlocks(int x, int y, boolean isSave) {
+        clearTempColor();
         for (int i = 0; i < BaseBlockData.ROW_NUM; i++) {
             for (int j = 0; j < BaseBlockData.ROW_NUM; j++) {
                 if (mBaseBlockDataArray[mBaseBlockChecked].baseData[i][j] > 0) {
-                    blocks[i + y][j + x].mData = 1;
-                    blocks[i + y][j + x].mColor = mBaseBlockDataArray[mBaseBlockChecked].mColor;
+                    if (isSave) {
+                        Block block = mBlockStore[i + y][j + x];
+                        block.mData = 1;
+                        block.mColor = mBaseBlockDataArray[mBaseBlockChecked].mColor;
+                    } else {
+                        Block block = mBlockStore[i + y][j + x];
+                        block.mColor = mBaseBlockDataArray[mBaseBlockChecked].mColor;
+                        block.isTempColor = true;
+                    }
                 }
             }
         }
         return true;
+    }
+
+    private void clearTempColor() {
+        for (int y = 0; y < mBlockStore.length; y++) {
+            for (int x = 0; x < mBlockStore[0].length; x++) {
+                Block block = mBlockStore[y][x];
+                if (block.isTempColor) {
+                    block.isTempColor = false;
+                    block.reset(getContext().getApplicationContext());
+                }
+            }
+        }
     }
 
     private void updateBaseBlock() {
@@ -445,14 +475,14 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
         for (int i = 0; i < mGameType; i++) {
             int count = 0;
             for (int j = 0; j < mGameType; j++) {
-                if (blocks[j][i].mData > 0) {
+                if (mBlockStore[j][i].mData > 0) {
                     count++;
                 }
             }
             if (count == mGameType) {
                 line_num_h++;
                 for (int k = 0; k < mGameType; k++) {
-                    blocks[k][i].ifNeedReset = true;
+                    mBlockStore[k][i].ifNeedReset = true;
                 }
             }
         }
@@ -462,14 +492,14 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
         for (int i = 0; i < mGameType; i++) {
             int count = 0;
             for (int j = 0; j < mGameType; j++) {
-                if (blocks[i][j].mData > 0) {
+                if (mBlockStore[i][j].mData > 0) {
                     count++;
                 }
             }
             if (count == mGameType) {
                 line_num_v++;
                 for (int k = 0; k < mGameType; k++) {
-                    blocks[i][k].ifNeedReset = true;
+                    mBlockStore[i][k].ifNeedReset = true;
                 }
             }
         }
@@ -477,8 +507,8 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
         //更新数据
         for (int i = 0; i < mGameType; i++) {
             for (int j = 0; j < mGameType; j++) {
-                if (blocks[i][j].ifNeedReset) {
-                    blocks[i][j].reset(mContext);
+                if (mBlockStore[i][j].ifNeedReset) {
+                    mBlockStore[i][j].reset(mContext);
                 }
             }
         }
@@ -491,8 +521,6 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
         if (mGameListener != null) {
             mGameListener.onScoreChange(mScore, mBestScore);
         }
-
-
     }
 
     private boolean isGameOver() {
@@ -516,7 +544,7 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
                         return false;
                     } else if (y + i >= mGameType || x + j >= mGameType) {
                         return false;
-                    } else if (blocks[y + i][x + j].mData > 0) {
+                    } else if (mBlockStore[y + i][x + j].mData > 0) {
                         return false;
                     }
                 }

@@ -40,7 +40,7 @@ public class GameActivity extends BaseActivity implements View.OnClickListener, 
     /**
      * 游戏View
      */
-    GameSurfaceView MGameSurfaceView;
+    private GameSurfaceView MGameSurfaceView;
 
 
     @Override

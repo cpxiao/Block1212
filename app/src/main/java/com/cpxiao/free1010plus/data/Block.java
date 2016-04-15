@@ -26,6 +26,11 @@ public class Block {
      */
     public boolean ifNeedReset;
 
+    /**
+     * 是否临时着色
+     */
+    public boolean isTempColor = false;
+
     public Block(Context c) {
         init(c);
     }
