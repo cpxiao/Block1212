@@ -262,7 +262,7 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
      * @param paint          paint
      */
     private void drawRoundSquare(Canvas canvas, float x, float y, float halfSideLength, Paint paint) {
-        halfSideLength -= 2;
+        halfSideLength -= halfSideLength / 10;
         RectF rectF = new RectF(x - halfSideLength, y - halfSideLength, x + halfSideLength, y + halfSideLength);
         canvas.drawRoundRect(rectF, halfSideLength / 2.5f, halfSideLength / 2.5f, paint);
     }
