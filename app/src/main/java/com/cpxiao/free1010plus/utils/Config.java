@@ -8,16 +8,16 @@ public class Config {
     /**
      * debug
      */
-    public static final boolean DEBUG = true;
+    public static final boolean DEBUG = false;
 
     /**
      * 有米广告：是否显示底部广告条
      */
-    public static final boolean YOUMI_IF_SHOW_ADS = true;
+    public static final boolean YOUMI_IF_SHOW_ADS = false;
     /**
      * 有米广告：是否显示插屏广告
      */
-    public static final boolean YOUMI_IF_SHOW_SPOT = true;
+    public static final boolean YOUMI_IF_SHOW_SPOT = false;
     /**
      * 有米广告：APPID
      */

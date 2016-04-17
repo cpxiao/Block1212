@@ -5,15 +5,15 @@ android {
     buildToolsVersion "23.0.2"
 
     defaultConfig {
-        applicationId "com.free1010"
+        applicationId "com.cpxiao.free1010plus"
         minSdkVersion 8
         targetSdkVersion 23
-        versionCode 3
-        versionName "3.0"
+        versionCode 1
+        versionName "1.0"
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }

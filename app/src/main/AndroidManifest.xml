@@ -33,23 +33,23 @@
             android:screenOrientation="portrait"/>
 
 
-        <activity
-            android:name="net.youmi.android.AdBrowser"
-            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
-            android:theme="@android:style/Theme.Light.NoTitleBar">
-        </activity>
+        <!--<activity-->
+            <!--android:name="net.youmi.android.AdBrowser"-->
+            <!--android:configChanges="keyboard|keyboardHidden|orientation|screenSize"-->
+            <!--android:theme="@android:style/Theme.Light.NoTitleBar">-->
+        <!--</activity>-->
 
-        <service
-            android:name="net.youmi.android.AdService"
-            android:exported="false">
-        </service>
-        <receiver
-            android:name="net.youmi.android.AdReceiver">
-            <intent-filter>
-                <action android:name="android.intent.action.PACKAGE_ADDED"/>
-                <data android:scheme="package"/>
-            </intent-filter>
-        </receiver>
+        <!--<service-->
+            <!--android:name="net.youmi.android.AdService"-->
+            <!--android:exported="false">-->
+        <!--</service>-->
+        <!--<receiver-->
+            <!--android:name="net.youmi.android.AdReceiver">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.PACKAGE_ADDED"/>-->
+                <!--<data android:scheme="package"/>-->
+            <!--</intent-filter>-->
+        <!--</receiver>-->
 
         <meta-data
             android:name="YOUMI_CHANNEL"
@@ -57,7 +57,7 @@
         </meta-data>
         <meta-data
             android:name="UMENG_APPKEY"
-            android:value="56ae0659e0f55ab14d0016dd"/>
+            android:value="5712e6f0e0f55ae88c000887"/>
         <meta-data
             android:name="UMENG_CHANNEL"
             android:value="Wandoujia"/>
