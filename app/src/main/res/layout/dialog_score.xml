@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    android:id="@+id/dialog_layouts"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="240dp"
+    android:id="@+id/dialog_layouts"
+    android:layout_width="280dp"
     android:layout_height="wrap_content"
     android:background="@drawable/bg_dialog"
     android:gravity="center"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="20dp">
 
 
     <TextView
@@ -25,8 +26,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ellipsize="end"
+        android:maxLines="1"
         android:padding="5dp"
-        android:singleLine="true"
         android:text="msg"
         android:textColor="@color/black"
         android:textSize="28sp"/>
@@ -36,8 +37,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ellipsize="end"
+        android:maxLines="1"
         android:padding="5dp"
-        android:singleLine="true"
         android:text="sub msg"
         android:textColor="@color/black"
         android:textSize="20sp"/>
@@ -48,30 +49,30 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <TextView
+        <Button
             android:id="@+id/dialog_btn_cancel"
             android:layout_width="80dp"
-            android:layout_height="40dp"
+            android:layout_height="30dp"
             android:layout_gravity="center"
             android:layout_margin="5dp"
-            android:background="#2196f3"
+            android:background="@drawable/dialog_btn_bg"
             android:ellipsize="end"
             android:gravity="center"
-            android:singleLine="true"
+            android:maxLines="1"
             android:text="Cancel"
             android:textColor="@color/white"
             android:textSize="16sp"/>
 
-        <TextView
+        <Button
             android:id="@+id/dialog_btn_ok"
             android:layout_width="80dp"
-            android:layout_height="40dp"
+            android:layout_height="30dp"
             android:layout_gravity="center"
             android:layout_margin="5dp"
-            android:background="#2196f3"
+            android:background="@drawable/dialog_btn_bg"
             android:ellipsize="end"
             android:gravity="center"
-            android:singleLine="true"
+            android:maxLines="1"
             android:text="OK"
             android:textColor="@color/white"
             android:textSize="16sp"/>

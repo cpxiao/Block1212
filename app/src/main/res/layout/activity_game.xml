@@ -6,75 +6,31 @@
               android:gravity="center"
               android:orientation="vertical">
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_margin="30dp"
-        android:orientation="horizontal">
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingTop="20dp">
 
-        <LinearLayout
-            android:layout_width="0dp"
+        <TextView
+            android:id="@+id/score"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
+            android:text="@string/score_label"
+            android:textColor="@color/color_text_score"
+            android:textSize="30sp"
+            android:textStyle="bold"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/score_label"
-                android:textColor="@color/color_text_score"
-                android:textSize="20sp"
-                android:typeface="serif"/>
-
-            <TextView
-                android:id="@+id/score"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/score_label"
-                android:textColor="@color/color_text_score"
-                android:textSize="30sp"
-                android:textStyle="bold"/>
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="0dp"
+        <TextView
+            android:id="@+id/best"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/best_label"
-                android:textColor="@color/color_text_best"
-                android:textSize="20sp"/>
-
-            <TextView
-                android:id="@+id/best"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/best_label"
-                android:textColor="@color/color_text_best"
-                android:textSize="30sp"
-                android:textStyle="bold"/>
-        </LinearLayout>
-
-
-        <ImageView
-            android:id="@+id/btn_pause"
-            android:layout_width="@dimen/icon_width_normal"
-            android:layout_height="@dimen/icon_width_normal"
-            android:layout_gravity="center"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="30dp"
-            android:background="@drawable/btn_pause"
-            android:text="@string/best_label"
-            android:textSize="20sp"/>
-
+            android:padding="5dp"
+            android:text="@string/best"
+            android:textColor="@color/color_text_best"
+            android:textSize="16sp"/>
 
     </LinearLayout>
 

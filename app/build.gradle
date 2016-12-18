@@ -1,35 +1,26 @@
 apply plugin: 'com.android.application'
 
-//获取时间戳
-def getDate() {
-    def date = new Date()
-    def formattedDate = date.format('yyyyMMddHHmm')
-    return formattedDate
-}
-
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.2"
 
     defaultConfig {
-        applicationId "com.cpxiao.free1010plus"
-        minSdkVersion 8
+        applicationId "com.cpxiao.block1212"
+        minSdkVersion 9
         targetSdkVersion 23
-        versionCode 11
-        versionName "1.1"
+        versionCode 101
+        versionName "1.0.1"
     }
     buildTypes {
         release {
             minifyEnabled true
+            shrinkResources true // 移除无用的resource文件
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
 
     productFlavors {
-        googleplay {}
-        anzhi {}
-        youmi{}
-        wandoujia{}
+        gp {}
     }
 
     productFlavors.all {
@@ -45,14 +36,16 @@ android {
                 def releaseApkName = packageName +
                         "_v" + defaultConfig.versionName +
                         "_" + variant.productFlavors[0].name +
-                        "_" + getDate() + '.apk'
+                        "_" + new Date().format('yyyyMMddHHmm') +
+                        '.apk'
                 output.outputFile = new File(oldFile.parent, releaseApkName)
             }
             if (variant.buildType.name.equals('beta')) {
                 def baseApkName = packageName +
                         "_v" + defaultConfig.versionName + "beta" +
                         "_" + variant.productFlavors[0].name +
-                        "_" + getDate() + '.apk'
+                        "_" + new Date().format('yyyyMMddHHmm') +
+                        '.apk'
                 output.outputFile = new File(oldFile.parent, baseApkName)
             }
             if (variant.buildType.name.equals('debug')) {
@@ -64,8 +57,15 @@ android {
 
 dependencies {
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:23.2.0'
-    compile 'com.android.support:design:23.2.0'
-    compile 'com.umeng.analytics:analytics:latest.integration'
-    compile files('libs/YoumiSdk_v6.1.0_2016-02-26.jar')
+
+    compile project(':AndroidUtils:library')
+
+//    compile 'com.android.support:appcompat-v7:23.2.0'
+//    compile 'com.android.support:design:23.2.0'
+    compile 'com.umeng.analytics:analytics:5.6.7'
+
+    //Facebook广告 start
+//    compile files('libs/AudienceNetwork_v4.7.jar')
+    //Facebook广告 end
+
 }

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">1010 Plus</string>
+    <string name="app_name">Block 1212</string>
     <string name="action_settings">Settings</string>
     <string name="continue_label">Continue</string>
     <string name="new_game">New Game</string>
@@ -10,6 +10,6 @@
     <string name="game_over">Game Over</string>
     <string name="play_again">Play Again ?</string>
     <string name="score_label">Score</string>
-    <string name="best_label">Best</string>
+    <string name="best">Best</string>
     <string name="icon">icon</string>
 </resources>
