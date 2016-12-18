@@ -10,13 +10,12 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
-import com.cpxiao.androidutils.library.utils.PreferencesUtils;
 import com.cpxiao.block1212.R;
-import com.cpxiao.block1212.data.BaseBlockData;
-import com.cpxiao.block1212.data.Block;
-import com.cpxiao.block1212.onGameListener;
-import com.cpxiao.block1212.utils.Config;
-import com.cpxiao.block1212.utils.Extra;
+import com.cpxiao.block1212.mode.BaseBlock;
+import com.cpxiao.block1212.mode.BaseBlockData;
+import com.cpxiao.block1212.mode.Block;
+import com.cpxiao.block1212.imp.onGameListener;
+import com.cpxiao.block1212.Config;
 
 
 /**
@@ -25,31 +24,40 @@ import com.cpxiao.block1212.utils.Extra;
 public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callback, Runnable {
     private static final boolean DEBUG = Config.DEBUG;
     private static final String TAG = GameSurfaceView.class.getSimpleName();
+
+    /**
+     * 游戏难度
+     */
+    private int mGameDifficulty;
+
     private Context mContext;
 
     private static final int GAME_TYPE_DEFAULT = 12;
     private static int mGameType = GAME_TYPE_DEFAULT;
-    private float paddingTop = 0, paddingLeft = 0;
-    private float blockSize;
+    private float mPaddingTop = 0, mPaddingLeft = 0;
+    private float mBlockSize;
 
     /**
      * 分数
      */
-    private int mScore = 0, mBestScore = 0;
+    private int mScore = 0;
     private onGameListener mGameListener;
 
     /**
      * 待选图案
      */
-    private static final float BASE_BLOCK_PERCENTAGE_SMALL = 0.7f;
-    private static final float BASE_BLOCK_PERCENTAGE_BIG = 0.9f;
-    private BaseBlockData[] mBaseBlockDataArray;
-    private int mBaseBlockNumber;
+    private static final float BASE_BLOCK_PERCENTAGE_SMALL = 0.618f;
+    private static final float BASE_BLOCK_PERCENTAGE_BIG = 0.88f;
+    private BaseBlock[] mBaseBlockArray;
+    private int mBaseBlockCount;
     private int mBaseBlockChecked = -1;
+    /**
+     * 绘制的待选块占格子数
+     */
+    private static final int BASE_BLOCK_COUNT = 4;
 
-    private int baseBlockSizeSmall;
-    private int baseBlockSizeBig;
-
+    private int mBaseBlockSizeSmall;
+    private int mBaseBlockSizeBig;
 
     private Block[][] mBlockStore;
 
@@ -61,21 +69,25 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
     //	private static Thread mThread;
     //线程消亡的标志位
     private boolean thread_over_flag = true;
+    //设置刷新时间为50毫秒
+    private static final int REFRESH_TIME = 50;
 
     //声明一个画布
     private Canvas mCanvas;
 
-    public GameSurfaceView(Context context, int gameType, boolean isNewGame) {
-        super(context);
-        mContext = context;
-        mGameType = gameType;
-        init(context, isNewGame);
-    }
-
-    public GameSurfaceView(Context context) {
+    private GameSurfaceView(Context context) {
         super(context);
         init(context, true);
     }
+
+    public GameSurfaceView(Context context, int gameType, boolean isNewGame, int gameDifficulty) {
+        super(context);
+        mContext = context;
+        mGameType = gameType;
+        mGameDifficulty = gameDifficulty;
+        init(context, isNewGame);
+    }
+
 
     private void init(Context c, boolean isNewGame) {
         //实例SurfaceHolder
@@ -89,7 +101,6 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
         //        mBlockPaint.setShadowLayer(5, 1, 1, Color.DKGRAY);
 
         mScore = 0;
-        mBestScore = PreferencesUtils.getInt(c, Extra.KEY_BEST_SCORE,0);
 
         //若读取进度失败，开始新游戏
         if (mBlockStore == null) {
@@ -162,11 +173,11 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
     }
 
     private void initBaseBlock() {
-        mBaseBlockNumber = mGameType / BaseBlockData.ROW_NUM;
-        mBaseBlockNumber = 3;
-        mBaseBlockDataArray = new BaseBlockData[mBaseBlockNumber];
-        for (int i = 0; i < mBaseBlockNumber; i++) {
-            mBaseBlockDataArray[i] = new BaseBlockData(mContext);
+        //        mBaseBlockCount = mGameType / BaseBlockData.ROW_NUM;
+        mBaseBlockCount = 3;
+        mBaseBlockArray = new BaseBlock[mBaseBlockCount];
+        for (int i = 0; i < mBaseBlockCount; i++) {
+            mBaseBlockArray[i] = new BaseBlock(mContext, mGameDifficulty);
         }
     }
 
@@ -188,12 +199,12 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
             mGameType = GAME_TYPE_DEFAULT;
         }
 
-        blockSize = Math.min(blockWidth, blockHeight);
-        baseBlockSizeSmall = (int) (blockSize * BASE_BLOCK_PERCENTAGE_SMALL);
-        baseBlockSizeBig = (int) (blockSize * BASE_BLOCK_PERCENTAGE_BIG);
+        mBlockSize = Math.min(blockWidth, blockHeight);
+        mBaseBlockSizeSmall = (int) (mBlockSize * BASE_BLOCK_PERCENTAGE_SMALL);
+        mBaseBlockSizeBig = (int) (mBlockSize * BASE_BLOCK_PERCENTAGE_BIG);
 
-        paddingTop = (screenHeight - mGameType * blockSize - BaseBlockData.ROW_NUM * baseBlockSizeSmall) / 2;
-        paddingLeft = (screenWidth - mGameType * blockSize) / 2;
+        mPaddingTop = (screenHeight - mGameType * mBlockSize - BaseBlockData.ROW_NUM * mBaseBlockSizeSmall) / 2;
+        mPaddingLeft = (screenWidth - mGameType * mBlockSize) / 2;
 
         myDraw();
 
@@ -227,7 +238,7 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 
 
             drawBlocks(mCanvas);
-            drawAllBaseBlock(mCanvas, mBaseBlockDataArray);
+            drawAllBaseBlock(mCanvas, mBaseBlockArray);
 
             //通过在Canvas上绘制内容来修改SurfaceView中的数据
             //		mCanvas.drawText("mySurfaceView", textX, textY, mLinePaint);
@@ -274,8 +285,8 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
                 } else {
                     mBlockPaint.setAlpha(255);
                 }
-                drawRoundSquare(canvas, paddingLeft + (j + 0.5f) * blockSize, paddingTop + (i + 0.5f) * blockSize,
-                        blockSize / 2, mBlockPaint);
+                drawRoundSquare(canvas, mPaddingLeft + (j + 0.5f) * mBlockSize, mPaddingTop + (i + 0.5f) * mBlockSize,
+                        mBlockSize / 2, mBlockPaint);
             }
         }
     }
@@ -286,55 +297,51 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
      * @param canvas canvas
      * @param data   data
      */
-    private void drawAllBaseBlock(Canvas canvas, BaseBlockData[] data) {
+    private void drawAllBaseBlock(Canvas canvas, BaseBlock[] data) {
         drawBaseBlock(canvas, data, false);
         drawBaseBlock(canvas, data, true);
 
     }
 
-    /**
-     * 绘制的待选块占格子数
-     */
-    private static final int BaseBlockCount = 4;
 
     /**
      * 绘制游戏待选方块
      *
-     * @param canvas    canvas
-     * @param data      data
-     * @param isChecked isChecked
+     * @param canvas         canvas
+     * @param baseBlockArray baseBlockArray
+     * @param isChecked      isChecked
      */
-    private void drawBaseBlock(Canvas canvas, BaseBlockData[] data, boolean isChecked) {
-        if (canvas == null || data == null || data.length < mBaseBlockNumber) {
+    private void drawBaseBlock(Canvas canvas, BaseBlock[] baseBlockArray, boolean isChecked) {
+        if (canvas == null || baseBlockArray == null || baseBlockArray.length < mBaseBlockCount) {
             return;
         }
-        for (int i = 0; i < mBaseBlockNumber; i++) {
-            float x = paddingLeft + i * blockSize * BaseBlockCount;
-            float y = paddingTop + baseBlockSizeSmall + mGameType * blockSize;
+        for (int i = 0; i < mBaseBlockCount; i++) {
+            float x = mPaddingLeft + i * mBlockSize * BASE_BLOCK_COUNT;
+            float y = mPaddingTop + mBaseBlockSizeSmall + mGameType * mBlockSize;
 
             if (isChecked && i == mBaseBlockChecked) {
-                drawBaseBlock(canvas, eventX - differentX, eventY - differentY, data[i],
-                        baseBlockSizeBig, true);
+                drawBaseBlock(canvas, eventX - differentX, eventY - differentY, baseBlockArray[i],
+                        mBaseBlockSizeBig, true);
             } else if (!isChecked && i != mBaseBlockChecked) {
-                drawBaseBlock(canvas, x, y, data[i], baseBlockSizeSmall, false);
+                drawBaseBlock(canvas, x, y, baseBlockArray[i], mBaseBlockSizeSmall, false);
             }
         }
     }
 
 
-    private void drawBaseBlock(Canvas canvas, float x, float y, BaseBlockData baseBlockData, int baseBlockSize,
+    private void drawBaseBlock(Canvas canvas, float x, float y, BaseBlock baseBlock, int baseBlockSize,
                                boolean isChecked) {
-        mBlockPaint.setColor(baseBlockData.color);
+        mBlockPaint.setColor(baseBlock.color);
 
         for (int i = 0; i < BaseBlockData.ROW_NUM; i++) {
             for (int j = 0; j < BaseBlockData.ROW_NUM; j++) {
-                if (baseBlockData.baseData[i][j] == 1) {
+                if (baseBlock.baseData[i][j] == 1) {
                     if (isChecked) {
-                        drawRoundSquare(canvas, x + (j + 0.5f) * blockSize, y + (i + 0.5f) *
-                                blockSize, baseBlockSize / 2, mBlockPaint);
+                        drawRoundSquare(canvas, x + (j + 0.5f) * mBlockSize, y + (i + 0.5f) *
+                                mBlockSize, baseBlockSize / 2, mBlockPaint);
                     } else {
-                        drawRoundSquare(canvas, x + (j + 0.5f) * baseBlockSizeSmall, y + (i + 0.5f) *
-                                baseBlockSizeSmall, baseBlockSize / 2, mBlockPaint);
+                        drawRoundSquare(canvas, x + (j + 0.5f) * mBaseBlockSizeSmall, y + (i + 0.5f) *
+                                mBaseBlockSizeSmall, baseBlockSize / 2, mBlockPaint);
                     }
                 }
             }
@@ -365,27 +372,27 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
         eventY = event.getY();
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
 
-            float minY = (paddingTop + baseBlockSizeSmall + mGameType * blockSize);
-            float maxY = minY + blockSize * BaseBlockCount;
+            float minY = (mPaddingTop + mBaseBlockSizeSmall + mGameType * mBlockSize);
+            float maxY = minY + mBlockSize * BASE_BLOCK_COUNT;
             if (eventY >= minY && eventY <= maxY) {
-                for (int i = 0; i < mBaseBlockNumber; i++) {
-                    float minX = paddingLeft + i * blockSize * BaseBlockCount;
-                    float maxX = minX + blockSize * BaseBlockCount;
+                for (int i = 0; i < mBaseBlockCount; i++) {
+                    float minX = mPaddingLeft + i * mBlockSize * BASE_BLOCK_COUNT;
+                    float maxX = minX + mBlockSize * BASE_BLOCK_COUNT;
                     if (eventX >= minX && eventX <= maxX) {
                         mBaseBlockChecked = i;
                         differentX = (int) (eventX - minX);
-                        differentY = blockSize * (mBaseBlockDataArray[i].sizeHeight + 1f);
+                        differentY = mBlockSize * (mBaseBlockArray[i].sizeHeight + 1f);
                     }
                 }
             }
         } else if (event.getAction() == MotionEvent.ACTION_UP) {
             if (mBaseBlockChecked >= 0) {
-                int numX = (int) ((eventX - differentX - paddingLeft + blockSize * 0.5) / blockSize);
-                int numY = (int) ((eventY - differentY - paddingTop + blockSize * 0.5) / blockSize);
+                int numX = (int) ((eventX - differentX - mPaddingLeft + mBlockSize * 0.5) / mBlockSize);
+                int numY = (int) ((eventY - differentY - mPaddingTop + mBlockSize * 0.5) / mBlockSize);
 
-                if (isCanBePlace(numX, numY, mBaseBlockDataArray[mBaseBlockChecked])) {
+                if (isCanBePlace(numX, numY, mBaseBlockArray[mBaseBlockChecked])) {
                     //放置成功，更新数据
-                    mScore += mBaseBlockDataArray[mBaseBlockChecked].baseScore;
+                    mScore += mBaseBlockArray[mBaseBlockChecked].baseScore;
                     updateBlocks(numX, numY, true);
                     //更新待选块数据
                     updateBaseBlock();
@@ -397,10 +404,10 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
             }
         } else if (event.getAction() == MotionEvent.ACTION_MOVE) {
             if (mBaseBlockChecked >= 0) {
-                int numX = (int) ((eventX - differentX - paddingLeft + blockSize * 0.5) / blockSize);
-                int numY = (int) ((eventY - differentY - paddingTop + blockSize * 0.5) / blockSize);
+                int numX = (int) ((eventX - differentX - mPaddingLeft + mBlockSize * 0.5) / mBlockSize);
+                int numY = (int) ((eventY - differentY - mPaddingTop + mBlockSize * 0.5) / mBlockSize);
 
-                if (isCanBePlace(numX, numY, mBaseBlockDataArray[mBaseBlockChecked])) {
+                if (isCanBePlace(numX, numY, mBaseBlockArray[mBaseBlockChecked])) {
                     //放置成功，更新数据
                     updateBlocks(numX, numY, false);
                 } else {
@@ -430,14 +437,14 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
         clearTempColor();
         for (int i = 0; i < BaseBlockData.ROW_NUM; i++) {
             for (int j = 0; j < BaseBlockData.ROW_NUM; j++) {
-                if (mBaseBlockDataArray[mBaseBlockChecked].baseData[i][j] > 0) {
+                if (mBaseBlockArray[mBaseBlockChecked].baseData[i][j] > 0) {
                     if (isSave) {
                         Block block = mBlockStore[i + y][j + x];
                         block.mData = 1;
-                        block.mColor = mBaseBlockDataArray[mBaseBlockChecked].color;
+                        block.mColor = mBaseBlockArray[mBaseBlockChecked].color;
                     } else {
                         Block block = mBlockStore[i + y][j + x];
-                        block.mColor = mBaseBlockDataArray[mBaseBlockChecked].color;
+                        block.mColor = mBaseBlockArray[mBaseBlockChecked].color;
                         block.isTempColor = true;
                     }
                 }
@@ -460,7 +467,7 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 
     private void updateBaseBlock() {
         if (mBaseBlockChecked >= 0) {
-            mBaseBlockDataArray[mBaseBlockChecked] = new BaseBlockData(mContext);
+            mBaseBlockArray[mBaseBlockChecked] = new BaseBlock(mContext, mGameDifficulty);
         }
     }
 
@@ -519,15 +526,15 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
         mScore += mGameType * ((line_num_sum + 1) * line_num_sum / 2);
         //更新分数
         if (mGameListener != null) {
-            mGameListener.onScoreChange(mScore, mBestScore);
+            mGameListener.onScoreChange(mScore);
         }
     }
 
     private boolean isGameOver() {
-        for (int i = 0; i < mBaseBlockNumber; i++) {
+        for (int i = 0; i < mBaseBlockCount; i++) {
             for (int x = 0; x < mGameType; x++) {
                 for (int y = 0; y < mGameType; y++) {
-                    if (isCanBePlace(x, y, mBaseBlockDataArray[i])) {
+                    if (isCanBePlace(x, y, mBaseBlockArray[i])) {
                         return false;
                     }
                 }
@@ -536,10 +543,10 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
         return true;
     }
 
-    public boolean isCanBePlace(int x, int y, BaseBlockData baseBlockData) {
+    public boolean isCanBePlace(int x, int y, BaseBlock baseBlock) {
         for (int i = 0; i < BaseBlockData.ROW_NUM; i++) {
             for (int j = 0; j < BaseBlockData.ROW_NUM; j++) {
-                if (baseBlockData.baseData[i][j] > 0) {
+                if (baseBlock.baseData[i][j] > 0) {
                     if (y + i < 0 || x + j < 0) {
                         return false;
                     } else if (y + i >= mGameType || x + j >= mGameType) {
@@ -553,8 +560,6 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
         return true;
     }
 
-    //设置刷新时间为50毫秒
-    private static final int REFRESH_TIME = 50;
 
     @Override
     public void run() {

@@ -6,10 +6,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.cpxiao.androidutils.library.utils.PreferencesUtils;
 import com.cpxiao.block1212.R;
 import com.cpxiao.block1212.utils.Extra;
-import com.cpxiao.block1212.view.ScoreDialog;
+import com.cpxiao.block1212.utils.GameDifficulty;
+import com.cpxiao.block1212.view.BestScoreDialog;
 
 /**
  * @author cpxiao on 2015/10/20.
@@ -22,52 +22,52 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
         setContentView(R.layout.activity_home);
 
         init();
+        initSmallAds("236636880101032_236637330100987");
     }
 
     private void init() {
-        Button btnContinue = (Button) findViewById(R.id.btn_continue);
-        btnContinue.setOnClickListener(this);
-        btnContinue.setVisibility(View.GONE);
 
-        Button btnNewGame = (Button) findViewById(R.id.btn_new_game);
-        btnNewGame.setOnClickListener(this);
+        Button btnEasy = (Button) findViewById(R.id.btn_easy);
+        btnEasy.setOnClickListener(this);
+
+        Button btnNormal = (Button) findViewById(R.id.btn_normal);
+        btnNormal.setOnClickListener(this);
+
+        Button btnHard = (Button) findViewById(R.id.btn_hard);
+        btnHard.setOnClickListener(this);
 
         Button btnBestScore = (Button) findViewById(R.id.btn_best_score);
         btnBestScore.setOnClickListener(this);
 
-        Button btnQuit = (Button) findViewById(R.id.btn_quit);
-        btnQuit.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        if (id == R.id.btn_continue) {
-            Bundle bundle = new Bundle();
-            bundle.putBoolean(Extra.INTENT_NAME_IS_NEW_GAME, false);
-            GameActivity.come2me(HomeActivity.this, bundle);
-        } else if (id == R.id.btn_new_game) {
+        if (id == R.id.btn_easy) {
             Bundle bundle = new Bundle();
             bundle.putBoolean(Extra.INTENT_NAME_IS_NEW_GAME, true);
-            GameActivity.come2me(HomeActivity.this, bundle);
+            bundle.putInt(Extra.INTENT_NAME_DIFFICULTY, GameDifficulty.EASY);
+            GameActivity.comeToMe(HomeActivity.this, bundle);
+        } else if (id == R.id.btn_normal) {
+            Bundle bundle = new Bundle();
+            bundle.putBoolean(Extra.INTENT_NAME_IS_NEW_GAME, true);
+            bundle.putInt(Extra.INTENT_NAME_DIFFICULTY, GameDifficulty.NORMAL);
+            GameActivity.comeToMe(HomeActivity.this, bundle);
+        } else if (id == R.id.btn_hard) {
+            Bundle bundle = new Bundle();
+            bundle.putBoolean(Extra.INTENT_NAME_IS_NEW_GAME, true);
+            bundle.putInt(Extra.INTENT_NAME_DIFFICULTY, GameDifficulty.HARD);
+            GameActivity.comeToMe(HomeActivity.this, bundle);
         } else if (id == R.id.btn_best_score) {
-            String bestScore = String.valueOf(PreferencesUtils.getInt(this, Extra.KEY_BEST_SCORE, 0));
-            final ScoreDialog dialog = new ScoreDialog(HomeActivity.this);
-            dialog.setTitle(getResources().getString(R.string.best_score));
-            dialog.setMsg(bestScore);
-            dialog.hideSubMsg();
-            dialog.setButtonOK("OK", new View.OnClickListener() {
+            final BestScoreDialog dialog = new BestScoreDialog(HomeActivity.this);
+            dialog.setButtonOK(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     dialog.dismiss();
                 }
             });
-            dialog.hideButtonCancel();
             dialog.show();
-
-
-        } else if (id == R.id.btn_quit) {
-            finish();
         }
     }
 

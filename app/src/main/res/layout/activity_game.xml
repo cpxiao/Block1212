@@ -11,36 +11,58 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:paddingTop="20dp">
 
         <TextView
-            android:id="@+id/score"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/score_label"
-            android:textColor="@color/color_text_score"
-            android:textSize="30sp"
+            android:id="@+id/game_mode"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/mode"
+            android:textColor="#fab52c"
+            android:textSize="20sp"
             android:textStyle="bold"/>
 
-        <TextView
-            android:id="@+id/best"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="5dp"
-            android:text="@string/best"
-            android:textColor="@color/color_text_best"
-            android:textSize="16sp"/>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
 
+            <TextView
+                android:id="@+id/score"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/score"
+                android:textColor="@color/color_text_score"
+                android:textSize="30sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/best"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="@string/best"
+                android:textColor="@color/color_text_best"
+                android:textSize="16sp"/>
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/game_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:layout_gravity="center"
-        android:layout_marginBottom="40dp"
+        android:layout_weight="1"
         android:orientation="horizontal">
 
     </LinearLayout>
+
+    <include layout="@layout/layout_ads"/>
 </LinearLayout>

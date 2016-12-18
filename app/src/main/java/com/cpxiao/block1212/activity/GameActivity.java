@@ -9,16 +9,25 @@ import android.widget.TextView;
 
 import com.cpxiao.androidutils.library.utils.PreferencesUtils;
 import com.cpxiao.block1212.R;
-import com.cpxiao.block1212.onGameListener;
+import com.cpxiao.block1212.imp.onGameListener;
 import com.cpxiao.block1212.utils.Extra;
+import com.cpxiao.block1212.utils.GameDifficulty;
 import com.cpxiao.block1212.view.GameSurfaceView;
-import com.cpxiao.block1212.view.ScoreDialog;
+import com.cpxiao.block1212.view.GameOverDialog;
 
 
 /**
  * @author cpxiao on 2015/10/20.
  */
 public class GameActivity extends BaseActivity implements onGameListener {
+    /**
+     * 游戏难度
+     */
+    private int mGameDifficulty;
+    /**
+     * 当前分数
+     */
+    private TextView mGameModeView;
     /**
      * 当前分数
      */
@@ -28,10 +37,13 @@ public class GameActivity extends BaseActivity implements onGameListener {
      */
     private TextView mBestScoreView;
     /**
+     *
+     */
+    private LinearLayout layout;
+    /**
      * 游戏View
      */
     private GameSurfaceView mGameSurfaceView;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +51,7 @@ public class GameActivity extends BaseActivity implements onGameListener {
 
         setContentView(R.layout.activity_game);
         init();
-
+        initSmallAds("236636880101032_236637590100961");
     }
 
     private void init() {
@@ -48,19 +60,39 @@ public class GameActivity extends BaseActivity implements onGameListener {
             throw new NullPointerException("bundle must not be null!");
         }
         boolean isNewGame = bundle.getBoolean(Extra.INTENT_NAME_IS_NEW_GAME, true);
+        mGameDifficulty = bundle.getInt(Extra.INTENT_NAME_DIFFICULTY, GameDifficulty.DEFAULT);
+
+        mGameModeView = (TextView) findViewById(R.id.game_mode);
+        setGameModeView(mGameDifficulty);
 
         mScoreView = (TextView) findViewById(R.id.score);
         mBestScoreView = (TextView) findViewById(R.id.best);
         setScoreView(0);
 
-        int bestScore = PreferencesUtils.getInt(this, Extra.KEY_BEST_SCORE,0);
-        setBestScoreView(bestScore);
+        updateBestScore(0, mGameDifficulty);
 
-        LinearLayout layout = (LinearLayout) findViewById(R.id.game_view);
-        mGameSurfaceView = new GameSurfaceView(GameActivity.this, 12, isNewGame);
+        layout = (LinearLayout) findViewById(R.id.game_view);
+        initGameView(isNewGame);
+    }
 
+    private void initGameView(boolean isNewGame) {
+        layout.removeAllViews();
+        mGameSurfaceView = new GameSurfaceView(GameActivity.this, 12, isNewGame, mGameDifficulty);
         mGameSurfaceView.setOnGameListener(this);
         layout.addView(mGameSurfaceView);
+    }
+
+    private void setGameModeView(int gameDifficulty) {
+        String text = "";
+        if (gameDifficulty == GameDifficulty.EASY) {
+            text = getResources().getString(R.string.easy);
+        } else if (gameDifficulty == GameDifficulty.NORMAL) {
+            text = getResources().getString(R.string.normal);
+        } else if (gameDifficulty == GameDifficulty.HARD) {
+            text = getResources().getString(R.string.hard);
+        }
+        text = text + " " + getResources().getString(R.string.mode);
+        mGameModeView.setText(text);
     }
 
     private void setScoreView(int score) {
@@ -71,6 +103,28 @@ public class GameActivity extends BaseActivity implements onGameListener {
     private void setBestScoreView(int score) {
         String text = getResources().getString(R.string.best) + ": " + score;
         mBestScoreView.setText(text);
+    }
+
+    private void updateBestScore(int score, int gameDifficulty) {
+        int bestScore = 0;
+        if (gameDifficulty == GameDifficulty.EASY) {
+            bestScore = PreferencesUtils.getInt(getApplicationContext(), Extra.KEY_BEST_SCORE_EASY, 0);
+        } else if (gameDifficulty == GameDifficulty.NORMAL) {
+            bestScore = PreferencesUtils.getInt(getApplicationContext(), Extra.KEY_BEST_SCORE_NORMAL, 0);
+        } else if (gameDifficulty == GameDifficulty.HARD) {
+            bestScore = PreferencesUtils.getInt(getApplicationContext(), Extra.KEY_BEST_SCORE_HARD, 0);
+        }
+        if (score > bestScore) {
+            bestScore = score;
+            if (gameDifficulty == GameDifficulty.EASY) {
+                PreferencesUtils.putInt(getApplicationContext(), Extra.KEY_BEST_SCORE_EASY, score);
+            } else if (gameDifficulty == GameDifficulty.NORMAL) {
+                PreferencesUtils.putInt(getApplicationContext(), Extra.KEY_BEST_SCORE_NORMAL, score);
+            } else if (gameDifficulty == GameDifficulty.HARD) {
+                PreferencesUtils.putInt(getApplicationContext(), Extra.KEY_BEST_SCORE_HARD, score);
+            }
+        }
+        setBestScoreView(bestScore);
     }
 
     @Override
@@ -86,15 +140,12 @@ public class GameActivity extends BaseActivity implements onGameListener {
 
 
     @Override
-    public void onScoreChange(final int score, final int bestScore) {
+    public void onScoreChange(final int score) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                if (score > bestScore) {
-                    PreferencesUtils.putInt(getApplicationContext(), Extra.KEY_BEST_SCORE, score);
-                    setBestScoreView(score);
-                }
                 setScoreView(score);
+                updateBestScore(score, mGameDifficulty);
             }
         });
     }
@@ -105,36 +156,31 @@ public class GameActivity extends BaseActivity implements onGameListener {
             @Override
             public void run() {
 
-                final ScoreDialog dialog = new ScoreDialog(GameActivity.this);
+                final GameOverDialog dialog = new GameOverDialog(GameActivity.this);
                 dialog.setCancelable(false);
-                dialog.setTitle(getResources().getString(R.string.game_over));
-                dialog.hideMsg();
-                dialog.setSubMsg(getResources().getString(R.string.play_again));
-                dialog.setButtonOK("Yes", new View.OnClickListener() {
+                dialog.setButtonOK(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         dialog.dismiss();
                         setScoreView(0);
-                        mGameSurfaceView.restart(GameActivity.this);
+                        initGameView(true);
                     }
                 });
-                dialog.setButtonCancel("No", new View.OnClickListener() {
+                dialog.setButtonCancel(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         dialog.dismiss();
                         finish();
                     }
                 });
-
                 dialog.show();
-
             }
         });
 
     }
 
 
-    public static void come2me(Context context, Bundle bundle) {
+    public static void comeToMe(Context context, Bundle bundle) {
         Intent intent = new Intent(context, GameActivity.class);
         intent.putExtras(bundle);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);

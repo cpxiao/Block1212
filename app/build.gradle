@@ -8,8 +8,8 @@ android {
         applicationId "com.cpxiao.block1212"
         minSdkVersion 9
         targetSdkVersion 23
-        versionCode 101
-        versionName "1.0.1"
+        versionCode 102
+        versionName "1.0.2"
     }
     buildTypes {
         release {
@@ -65,7 +65,7 @@ dependencies {
     compile 'com.umeng.analytics:analytics:5.6.7'
 
     //Facebook广告 start
-//    compile files('libs/AudienceNetwork_v4.7.jar')
+    compile files('libs/AudienceNetwork_v4.7.jar')
     //Facebook广告 end
 
 }

@@ -4,57 +4,68 @@
     android:id="@+id/content_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="center"
     android:background="@drawable/activity_home_bg"
-    android:gravity="center"
     android:orientation="vertical">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
 
-    <Button
-        android:id="@+id/btn_continue"
-        android:layout_width="@dimen/btn_width"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/common_3dp"
-        android:background="@drawable/home_btn_bg"
-        android:text="@string/continue_label"
-        android:textColor="@color/white"
-        android:textSize="@dimen/home_text_size_big"
-        android:textStyle="bold"/>
-
-
-    <Button
-        android:id="@+id/btn_new_game"
-        android:layout_width="@dimen/btn_width"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/common_3dp"
-        android:background="@drawable/home_btn_bg"
-        android:text="@string/new_game"
-        android:textColor="@color/white"
-        android:textSize="@dimen/home_text_size_big"
-        android:textStyle="bold"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingBottom="30dp"
+            android:text="@string/app_name"
+            android:textColor="@android:color/white"
+            android:textSize="42sp"
+            android:textStyle="bold"/>
 
 
-    <Button
-        android:id="@+id/btn_best_score"
-        android:layout_width="@dimen/btn_width"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/common_3dp"
-        android:background="@drawable/home_btn_bg"
-        android:text="@string/best_score"
-        android:textColor="#ffffff"
-        android:textSize="@dimen/home_text_size_big"
-        android:textStyle="bold"/>
+        <Button
+            android:id="@+id/btn_easy"
+            android:layout_width="@dimen/home_btn_width"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/home_btn_margin_3dp"
+            android:background="@drawable/home_btn_bg"
+            android:text="@string/easy"
+            android:textColor="@color/white"
+            android:textSize="@dimen/home_btn_text_size_28sp"/>
 
-    <Button
-        android:id="@+id/btn_quit"
-        android:layout_width="@dimen/btn_width"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/common_3dp"
-        android:background="@drawable/home_btn_bg"
-        android:text="@string/quit"
-        android:textColor="#ffffff"
-        android:textSize="@dimen/home_text_size_big"
-        android:textStyle="bold"/>
+        <Button
+            android:id="@+id/btn_normal"
+            android:layout_width="@dimen/home_btn_width"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/home_btn_margin_3dp"
+            android:background="@drawable/home_btn_bg"
+            android:text="@string/normal"
+            android:textColor="@color/white"
+            android:textSize="@dimen/home_btn_text_size_28sp"/>
+
+        <Button
+            android:id="@+id/btn_hard"
+            android:layout_width="@dimen/home_btn_width"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/home_btn_margin_3dp"
+            android:background="@drawable/home_btn_bg"
+            android:text="@string/hard"
+            android:textColor="@color/white"
+            android:textSize="@dimen/home_btn_text_size_28sp"/>
 
 
+        <Button
+            android:id="@+id/btn_best_score"
+            android:layout_width="@dimen/home_btn_width"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/home_btn_margin_3dp"
+            android:background="@drawable/home_btn_bg"
+            android:text="@string/best_score"
+            android:textColor="#ffffff"
+            android:textSize="@dimen/home_btn_text_size_28sp"/>
+    </LinearLayout>
+
+    <include layout="@layout/layout_ads"/>
 </LinearLayout>

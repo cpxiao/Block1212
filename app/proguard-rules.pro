@@ -16,7 +16,8 @@
 #   public *;
 #}
 
--dontwarn net.youmi.android.**
--keep class net.youmi.android.** {
+-dontwarn com.facebook.**
+-keep class com.facebook.** {
     *;
 }
+

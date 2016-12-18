@@ -1,11 +1,4 @@
-package com.cpxiao.block1212.data;
-
-import android.content.Context;
-import android.graphics.Color;
-
-import com.cpxiao.block1212.R;
-
-import java.util.Random;
+package com.cpxiao.block1212.mode;
 
 /**
  * @author cpxiao on 2015/10/19.
@@ -13,18 +6,7 @@ import java.util.Random;
 public class BaseBlockData {
     public static final int ROW_NUM = 5;
 
-    public int[][] baseData;
-    public int color;
-    public int sizeWidth;
-    public int sizeHeight;
-    public int baseScore;
-
-    public BaseBlockData(Context c) {
-        this.baseData = getBaseData();
-        this.color = getColor(c);
-        this.sizeWidth = getSizeWidth();
-        this.sizeHeight = getSizeHeight();
-        this.baseScore = getBaseScore();
+    private BaseBlockData() {
     }
 
     private static final int[][] A1 = {
@@ -229,8 +211,120 @@ public class BaseBlockData {
             {0, 0, 0, 0, 0},
             {0, 0, 0, 0, 0}};
 
+    private static final int[][] I1 = {
+            {1, 1, 0, 0, 0},
+            {0, 1, 1, 0, 0},
+            {0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0}};
+    private static final int[][] I2 = {
+            {0, 1, 1, 0, 0},
+            {1, 1, 0, 0, 0},
+            {0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0}};
+    private static final int[][] I3 = {
+            {0, 1, 0, 0, 0},
+            {1, 1, 0, 0, 0},
+            {1, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0}};
+    private static final int[][] I4 = {
+            {1, 0, 0, 0, 0},
+            {1, 1, 0, 0, 0},
+            {0, 1, 0, 0, 0},
+            {0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0}};
 
-    private static final int[][][] BASE_DATA_EASY = {
+    private static final int[][] J1 = {
+            {1, 0, 1, 0, 0},
+            {1, 1, 1, 0, 0},
+            {0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0}};
+    private static final int[][] J2 = {
+            {1, 1, 1, 0, 0},
+            {1, 0, 1, 0, 0},
+            {0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0}};
+    private static final int[][] J3 = {
+            {1, 1, 0, 0, 0},
+            {0, 1, 0, 0, 0},
+            {1, 1, 0, 0, 0},
+            {0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0}};
+    private static final int[][] J4 = {
+            {1, 1, 0, 0, 0},
+            {1, 0, 0, 0, 0},
+            {1, 1, 0, 0, 0},
+            {0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0}};
+
+    private static final int[][] K1 = {
+            {1, 0, 1, 0, 0},
+            {1, 0, 1, 0, 0},
+            {1, 1, 1, 0, 0},
+            {0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0}};
+    private static final int[][] K2 = {
+            {1, 1, 1, 0, 0},
+            {1, 0, 1, 0, 0},
+            {1, 0, 1, 0, 0},
+            {0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0}};
+    private static final int[][] K3 = {
+            {1, 1, 1, 0, 0},
+            {0, 0, 1, 0, 0},
+            {1, 1, 1, 0, 0},
+            {0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0}};
+    private static final int[][] K4 = {
+            {1, 1, 1, 0, 0},
+            {1, 0, 0, 0, 0},
+            {1, 1, 1, 0, 0},
+            {0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0}};
+    private static final int[][] K5 = {
+            {1, 1, 1, 0, 0},
+            {0, 1, 0, 0, 0},
+            {1, 1, 1, 0, 0},
+            {0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0}};
+    private static final int[][] K6 = {
+            {1, 0, 1, 0, 0},
+            {1, 1, 1, 0, 0},
+            {1, 0, 1, 0, 0},
+            {0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0}};
+
+    private static final int[][] L1 = {
+            {1, 1, 0, 0, 0},
+            {0, 1, 0, 0, 0},
+            {0, 1, 1, 0, 0},
+            {0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0}};
+    private static final int[][] L2 = {
+            {0, 1, 1, 0, 0},
+            {0, 1, 0, 0, 0},
+            {1, 1, 0, 0, 0},
+            {0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0}};
+    private static final int[][] L3 = {
+            {1, 0, 0, 0, 0},
+            {1, 1, 1, 0, 0},
+            {0, 0, 1, 0, 0},
+            {0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0}};
+    private static final int[][] L4 = {
+            {0, 0, 1, 0, 0},
+            {1, 1, 1, 0, 0},
+            {1, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0}};
+
+
+    public static final int[][][] BASE_DATA_EASY = {
             A1, A2, A3, A4, A5,
             B1, B2, B3, B4,
             C1, C2, C3, C4,
@@ -238,62 +332,32 @@ public class BaseBlockData {
             E1, E2,
             F1, F2, F3, F4
     };
+    public static final int[][][] BASE_DATA_NORMAL = {
+            A1, A2, A3, A4, A5,
+            B1, B2, B3, B4,
+            C1, C2, C3, C4,
+            D1, D2, D3, D4,
+            E1, E2,
+            F1, F2, F3, F4,
+            G1, G2, G3, G4,
+            H1, H2, H3, H4, H5,
+            I1, I2, I3, I4
+    };
+    public static final int[][][] BASE_DATA_HARD = {
+            A1, A2, A3, A4, A5,
+            B1, B2, B3, B4,
+            C1, C2, C3, C4,
+            D1, D2, D3, D4,
+            E1, E2,
+            F1, F2, F3, F4,
+            G1, G2, G3, G4,
+            H1, H2, H3, H4, H5,
+            I1, I2, I3, I4,
+            J1, J2, J3, J4,
+            K1, K2, K3, K4, K5, K6,
+            L1, L2, L3, L4
 
+    };
 
-    private int[][] getBaseData() {
-        Random random = new Random();
-        int tmp = random.nextInt(BASE_DATA_EASY.length);
-        return BASE_DATA_EASY[tmp];
-    }
-
-
-    private int getColor(Context c) {
-        String[] colors = c.getResources().getStringArray(R.array.app);
-        Random random = new Random();
-        int i = random.nextInt(colors.length);
-        return Color.parseColor(colors[i]);
-    }
-
-    private int getSizeWidth() {
-        int result = 0;
-        if (baseData != null) {
-            for (int i = 0; i < ROW_NUM; i++) {
-                for (int j = 0; j < ROW_NUM; j++) {
-                    if (baseData[i][j] > 0 && j >= result) {
-                        result = j + 1;
-                    }
-                }
-            }
-        }
-        return result;
-    }
-
-    private int getSizeHeight() {
-        int result = 0;
-        if (baseData != null) {
-            for (int i = 0; i < ROW_NUM; i++) {
-                for (int j = 0; j < ROW_NUM; j++) {
-                    if (baseData[i][j] > 0 && i >= result) {
-                        result = i + 1;
-                    }
-                }
-            }
-        }
-        return result;
-    }
-
-    private int getBaseScore() {
-        int result = 0;
-        if (baseData != null) {
-            for (int i = 0; i < ROW_NUM; i++) {
-                for (int j = 0; j < ROW_NUM; j++) {
-                    if (baseData[i][j] > 0) {
-                        result++;
-                    }
-                }
-            }
-        }
-        return result;
-    }
 
 }
