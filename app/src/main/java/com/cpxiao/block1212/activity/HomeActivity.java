@@ -10,6 +10,7 @@ import com.cpxiao.block1212.R;
 import com.cpxiao.block1212.utils.Extra;
 import com.cpxiao.block1212.utils.GameDifficulty;
 import com.cpxiao.block1212.view.BestScoreDialog;
+import com.cpxiao.lib.activity.BaseActivity;
 
 /**
  * @author cpxiao on 2015/10/20.
@@ -22,7 +23,8 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
         setContentView(R.layout.activity_home);
 
         init();
-        initSmallAds("236636880101032_236637330100987");
+//        initFbAds50("236636880101032_236637330100987");
+        initAdMobAds50("ca-app-pub-4157365005379790/3703396465");
     }
 
     private void init() {

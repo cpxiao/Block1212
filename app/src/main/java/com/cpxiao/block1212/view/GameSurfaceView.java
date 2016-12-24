@@ -10,12 +10,12 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
+import com.cpxiao.block1212.Config;
 import com.cpxiao.block1212.R;
+import com.cpxiao.block1212.imp.onGameListener;
 import com.cpxiao.block1212.mode.BaseBlock;
 import com.cpxiao.block1212.mode.BaseBlockData;
 import com.cpxiao.block1212.mode.Block;
-import com.cpxiao.block1212.imp.onGameListener;
-import com.cpxiao.block1212.Config;
 
 
 /**
@@ -265,9 +265,9 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
      * @param paint          paint
      */
     private void drawRoundSquare(Canvas canvas, float x, float y, float halfSideLength, Paint paint) {
-        halfSideLength -= halfSideLength / 10;
+        halfSideLength -= Math.max(halfSideLength / 12, 1.5f);
         RectF rectF = new RectF(x - halfSideLength, y - halfSideLength, x + halfSideLength, y + halfSideLength);
-        canvas.drawRoundRect(rectF, halfSideLength / 2.5f, halfSideLength / 2.5f, paint);
+        canvas.drawRoundRect(rectF, 0.3f * halfSideLength, 0.3f * halfSideLength, paint);
     }
 
     /**

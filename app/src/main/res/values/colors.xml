@@ -11,25 +11,20 @@
 
 
     <string-array name="app">
-        <item>#ef48de</item>
+        <item>#d958cc</item>
         <item>#0be2ae</item>
-        <item>#ec8f2c</item>
-        <item>#e7cb4a</item>
+        <item>#f79328</item>
+        <item>#e7cf60</item>
         <item>#60dc61</item>
         <item>#2dd2cd</item>
         <item>#315ae1</item>
-        <item>#de234e</item>
+        <item>#e7486d</item>
         <item>#926eec</item>
         <item>#80cf66</item>
     </string-array>
 
-    <color name="color_btn_new_game">#9fd35d</color>
-    <color name="color_btn_new_game_tap">#84c249</color>
-    <color name="color_btn_best_score">#5260e7</color>
-    <color name="color_btn_best_score_tap">#4251e6</color>
-    <color name="color_btn_about_me">#c9aa6c</color>
-    <color name="color_btn_about_me_tap">#ba9a59</color>
 
+    <color name="color_text_mode">#fab52c</color>
     <color name="color_text_score">#86c65e</color>
     <color name="color_text_best">#364cae</color>
 

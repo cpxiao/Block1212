@@ -1,15 +1,16 @@
 apply plugin: 'com.android.application'
+//apply plugin: 'com.antfortune.freeline'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.2"
+    buildToolsVersion "23.0.3"
 
     defaultConfig {
         applicationId "com.cpxiao.block1212"
-        minSdkVersion 9
+        minSdkVersion 9//使用freeline测试的时候最低14，之后改回对应版本9
         targetSdkVersion 23
-        versionCode 102
-        versionName "1.0.2"
+        versionCode 103
+        versionName "1.0.3"
     }
     buildTypes {
         release {
@@ -24,8 +25,13 @@ android {
     }
 
     productFlavors.all {
-        flavor -> flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
+//        flavor -> flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
     }
+
+//    freeline {
+//        hack true
+//        productFlavor 'gp'
+//    }
 
     //修改生成的apk名字
     applicationVariants.all { variant ->
@@ -60,12 +66,14 @@ dependencies {
 
     compile project(':AndroidUtils:library')
 
-//    compile 'com.android.support:appcompat-v7:23.2.0'
-//    compile 'com.android.support:design:23.2.0'
-    compile 'com.umeng.analytics:analytics:5.6.7'
-
     //Facebook广告 start
     compile files('libs/AudienceNetwork_v4.7.jar')
     //Facebook广告 end
 
+
+    compile 'com.google.firebase:firebase-ads:9.4.0'
+
+
 }
+
+apply plugin: 'com.google.gms.google-services'

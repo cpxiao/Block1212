@@ -14,6 +14,7 @@ import com.cpxiao.block1212.utils.Extra;
 import com.cpxiao.block1212.utils.GameDifficulty;
 import com.cpxiao.block1212.view.GameSurfaceView;
 import com.cpxiao.block1212.view.GameOverDialog;
+import com.cpxiao.lib.activity.BaseActivity;
 
 
 /**
@@ -51,7 +52,8 @@ public class GameActivity extends BaseActivity implements onGameListener {
 
         setContentView(R.layout.activity_game);
         init();
-        initSmallAds("236636880101032_236637590100961");
+//        initFbAds50("236636880101032_236637590100961");
+        initAdMobAds50("ca-app-pub-4157365005379790/7898093661");
     }
 
     private void init() {
