@@ -24,47 +24,34 @@
             android:textSize="42sp"
             android:textStyle="bold"/>
 
-
         <Button
             android:id="@+id/btn_easy"
+            style="@style/HomeBtn"
             android:layout_width="@dimen/home_btn_width"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/home_btn_margin_3dp"
-            android:background="@drawable/home_btn_bg"
-            android:text="@string/easy"
-            android:textColor="@color/white"
-            android:textSize="@dimen/home_btn_text_size_28sp"/>
+            android:text="@string/easy"/>
 
         <Button
             android:id="@+id/btn_normal"
+            style="@style/HomeBtn"
             android:layout_width="@dimen/home_btn_width"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/home_btn_margin_3dp"
-            android:background="@drawable/home_btn_bg"
-            android:text="@string/normal"
-            android:textColor="@color/white"
-            android:textSize="@dimen/home_btn_text_size_28sp"/>
+            android:text="@string/normal"/>
 
         <Button
             android:id="@+id/btn_hard"
+            style="@style/HomeBtn"
             android:layout_width="@dimen/home_btn_width"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/home_btn_margin_3dp"
-            android:background="@drawable/home_btn_bg"
-            android:text="@string/hard"
-            android:textColor="@color/white"
-            android:textSize="@dimen/home_btn_text_size_28sp"/>
+            android:text="@string/hard"/>
 
 
         <Button
             android:id="@+id/btn_best_score"
+            style="@style/HomeBtn"
             android:layout_width="@dimen/home_btn_width"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/home_btn_margin_3dp"
-            android:background="@drawable/home_btn_bg"
-            android:text="@string/best_score"
-            android:textColor="#ffffff"
-            android:textSize="@dimen/home_btn_text_size_28sp"/>
+            android:text="@string/best_score"/>
     </LinearLayout>
 
     <include layout="@layout/layout_ads"/>

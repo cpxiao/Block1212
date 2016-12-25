@@ -1,4 +1,4 @@
-package com.cpxiao.block1212.view;
+package com.cpxiao.block1212.views;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -10,7 +10,7 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
-import com.cpxiao.block1212.Config;
+import com.cpxiao.lib.Config;
 import com.cpxiao.block1212.R;
 import com.cpxiao.block1212.imp.onGameListener;
 import com.cpxiao.block1212.mode.BaseBlock;

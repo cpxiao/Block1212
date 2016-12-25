@@ -9,7 +9,7 @@ import android.view.WindowManager;
 import android.widget.LinearLayout;
 
 import com.cpxiao.androidutils.library.utils.StringUtils;
-import com.cpxiao.block1212.Config;
+import com.cpxiao.lib.Config;
 import com.cpxiao.block1212.R;
 import com.facebook.ads.Ad;
 import com.facebook.ads.AdError;

@@ -17,7 +17,7 @@
         android:gravity="center"
         android:padding="5dp"
         android:text="@string/best_score"
-        android:textColor="@color/black"
+        android:textColor="@android:color/black"
         android:textSize="@dimen/dialog_title_size_28sp"/>
 
     <TableLayout
@@ -35,8 +35,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:padding="3dp"
-                android:text="@string/easy"
-                android:textColor="@color/black"
+                android:textColor="@android:color/black"
                 android:textSize="@dimen/dialog_msg_size_24sp"/>
 
             <TextView
@@ -49,7 +48,7 @@
                 android:maxLines="1"
                 android:padding="3dp"
                 android:text="0"
-                android:textColor="@color/black"
+                android:textColor="@android:color/black"
                 android:textSize="@dimen/dialog_msg_size_24sp"/>
         </TableRow>
 
@@ -64,8 +63,7 @@
                 android:gravity="center"
                 android:maxLines="1"
                 android:padding="3dp"
-                android:text="@string/normal"
-                android:textColor="@color/black"
+                android:textColor="@android:color/black"
                 android:textSize="@dimen/dialog_msg_size_24sp"/>
 
             <TextView
@@ -78,7 +76,7 @@
                 android:maxLines="1"
                 android:padding="3dp"
                 android:text="0"
-                android:textColor="@color/black"
+                android:textColor="@android:color/black"
                 android:textSize="@dimen/dialog_msg_size_24sp"/>
         </TableRow>
 
@@ -93,8 +91,7 @@
                 android:gravity="center"
                 android:maxLines="1"
                 android:padding="3dp"
-                android:text="@string/hard"
-                android:textColor="@color/black"
+                android:textColor="@android:color/black"
                 android:textSize="@dimen/dialog_msg_size_24sp"/>
 
             <TextView
@@ -107,7 +104,7 @@
                 android:maxLines="1"
                 android:padding="3dp"
                 android:text="0"
-                android:textColor="@color/black"
+                android:textColor="@android:color/black"
                 android:textSize="@dimen/dialog_msg_size_24sp"/>
         </TableRow>
     </TableLayout>
@@ -124,7 +121,7 @@
         android:gravity="center"
         android:maxLines="1"
         android:text="@string/ok"
-        android:textColor="@color/white"
+        android:textColor="@android:color/white"
         android:textSize="@dimen/dialog_btn_size_16sp"/>
 
 

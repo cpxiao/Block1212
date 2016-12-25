@@ -17,7 +17,7 @@
         android:gravity="center"
         android:padding="5dp"
         android:text="@string/game_over"
-        android:textColor="@color/black"
+        android:textColor="@android:color/black"
         android:textSize="@dimen/dialog_title_size_28sp"/>
 
     <TextView
@@ -29,7 +29,7 @@
         android:maxLines="1"
         android:padding="5dp"
         android:text="@string/play_again"
-        android:textColor="@color/black"
+        android:textColor="@android:color/black"
         android:textSize="@dimen/dialog_msg_size_24sp"/>
 
     <LinearLayout
@@ -49,7 +49,7 @@
             android:gravity="center"
             android:maxLines="1"
             android:text="@string/cancel"
-            android:textColor="@color/white"
+            android:textColor="@android:color/white"
             android:textSize="@dimen/dialog_btn_size_16sp"/>
 
         <Button
@@ -63,7 +63,7 @@
             android:gravity="center"
             android:maxLines="1"
             android:text="@string/ok"
-            android:textColor="@color/white"
+            android:textColor="@android:color/white"
             android:textSize="@dimen/dialog_btn_size_16sp"/>
     </LinearLayout>
 

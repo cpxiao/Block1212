@@ -12,8 +12,8 @@ import com.cpxiao.block1212.R;
 import com.cpxiao.block1212.imp.onGameListener;
 import com.cpxiao.block1212.utils.Extra;
 import com.cpxiao.block1212.utils.GameDifficulty;
-import com.cpxiao.block1212.view.GameSurfaceView;
-import com.cpxiao.block1212.view.GameOverDialog;
+import com.cpxiao.block1212.views.GameSurfaceView;
+import com.cpxiao.block1212.views.GameOverDialog;
 import com.cpxiao.lib.activity.BaseActivity;
 
 

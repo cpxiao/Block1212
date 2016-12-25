@@ -1,4 +1,4 @@
-package com.cpxiao.block1212.view;
+package com.cpxiao.block1212.views;
 
 import android.app.Dialog;
 import android.content.Context;

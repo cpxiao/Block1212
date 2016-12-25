@@ -9,7 +9,7 @@ import android.widget.Button;
 import com.cpxiao.block1212.R;
 import com.cpxiao.block1212.utils.Extra;
 import com.cpxiao.block1212.utils.GameDifficulty;
-import com.cpxiao.block1212.view.BestScoreDialog;
+import com.cpxiao.block1212.views.BestScoreDialog;
 import com.cpxiao.lib.activity.BaseActivity;
 
 /**
