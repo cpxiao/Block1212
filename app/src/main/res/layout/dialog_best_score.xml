@@ -114,6 +114,7 @@
         android:id="@+id/dialog_btn_ok"
         android:layout_width="@dimen/dialog_btn_width"
         android:layout_height="@dimen/dialog_btn_height"
+        android:padding="5dp"
         android:layout_gravity="center"
         android:layout_margin="5dp"
         android:background="@drawable/dialog_btn_bg"

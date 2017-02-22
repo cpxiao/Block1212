@@ -6,9 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.cpxiao.block1212.Extra;
 import com.cpxiao.block1212.R;
-import com.cpxiao.block1212.utils.Extra;
-import com.cpxiao.block1212.utils.GameDifficulty;
 import com.cpxiao.block1212.views.BestScoreDialog;
 import com.cpxiao.lib.activity.BaseActivity;
 
@@ -22,12 +21,12 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        init();
-//        initFbAds50("236636880101032_236637330100987");
+        initWidget();
+        initFbAds50("236636880101032_236637330100987");
         initAdMobAds50("ca-app-pub-4157365005379790/3703396465");
     }
 
-    private void init() {
+    private void initWidget() {
 
         Button btnEasy = (Button) findViewById(R.id.btn_easy);
         btnEasy.setOnClickListener(this);
@@ -41,26 +40,26 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
         Button btnBestScore = (Button) findViewById(R.id.btn_best_score);
         btnBestScore.setOnClickListener(this);
 
+        Button btnSettings = (Button) findViewById(R.id.btn_settings);
+        btnSettings.setOnClickListener(this);
+
     }
 
     @Override
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.btn_easy) {
-            Bundle bundle = new Bundle();
-            bundle.putBoolean(Extra.INTENT_NAME_IS_NEW_GAME, true);
-            bundle.putInt(Extra.INTENT_NAME_DIFFICULTY, GameDifficulty.EASY);
-            GameActivity.comeToMe(HomeActivity.this, bundle);
+            Bundle bundle = GameActivity.makeBundle(true, Extra.GameDifficulty.EASY);
+            Intent intent = GameActivity.makeIntent(HomeActivity.this, bundle);
+            startActivity(intent);
         } else if (id == R.id.btn_normal) {
-            Bundle bundle = new Bundle();
-            bundle.putBoolean(Extra.INTENT_NAME_IS_NEW_GAME, true);
-            bundle.putInt(Extra.INTENT_NAME_DIFFICULTY, GameDifficulty.NORMAL);
-            GameActivity.comeToMe(HomeActivity.this, bundle);
+            Bundle bundle = GameActivity.makeBundle(true, Extra.GameDifficulty.NORMAL);
+            Intent intent = GameActivity.makeIntent(HomeActivity.this, bundle);
+            startActivity(intent);
         } else if (id == R.id.btn_hard) {
-            Bundle bundle = new Bundle();
-            bundle.putBoolean(Extra.INTENT_NAME_IS_NEW_GAME, true);
-            bundle.putInt(Extra.INTENT_NAME_DIFFICULTY, GameDifficulty.HARD);
-            GameActivity.comeToMe(HomeActivity.this, bundle);
+            Bundle bundle = GameActivity.makeBundle(true, Extra.GameDifficulty.HARD);
+            Intent intent = GameActivity.makeIntent(HomeActivity.this, bundle);
+            startActivity(intent);
         } else if (id == R.id.btn_best_score) {
             final BestScoreDialog dialog = new BestScoreDialog(HomeActivity.this);
             dialog.setButtonOK(new View.OnClickListener() {
@@ -70,6 +69,9 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
                 }
             });
             dialog.show();
+        } else if (id == R.id.btn_settings) {
+            Intent intent = SettingsActivity.makeIntent(HomeActivity.this, null);
+            startActivity(intent);
         }
     }
 

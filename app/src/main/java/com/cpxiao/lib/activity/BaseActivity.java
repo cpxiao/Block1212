@@ -95,6 +95,7 @@ public class BaseActivity extends Activity {
                 if (DEBUG) {
                     Log.d(TAG, "onAdLoaded: ");
                 }
+                addToLayout(mFbAdView);
             }
 
             @Override
@@ -114,7 +115,6 @@ public class BaseActivity extends Activity {
         }
         mFbAdView.loadAd();
 
-        addToLayout(mFbAdView);
     }
 
     protected void initAdMobAds50(String placementId) {
@@ -185,7 +185,7 @@ public class BaseActivity extends Activity {
                 if (DEBUG) {
                     Log.d(TAG, "onAdLoaded: ");
                 }
-
+                addToLayout(mAdMobAdView);
             }
         });
         AdRequest adRequest;
@@ -202,7 +202,7 @@ public class BaseActivity extends Activity {
             Log.d(TAG, "initAdMobAds: mAdMobAdView.loadAd(adRequest);");
         }
         mAdMobAdView.loadAd(adRequest);
-        addToLayout(mAdMobAdView);
+
     }
 
     private void addToLayout(View view) {

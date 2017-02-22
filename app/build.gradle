@@ -10,8 +10,8 @@ android {
         applicationId "com.cpxiao.block1212"
         minSdkVersion 9//使用freeline测试的时候最低14，之后改回对应版本9
         targetSdkVersion 23
-        versionCode 103
-        versionName "1.0.3"
+        versionCode 110
+        versionName "1.1.0"
     }
     buildTypes {
         release {
@@ -22,7 +22,12 @@ android {
     }
 
     productFlavors {
-        gp {}
+        debug_gp {
+            minSdkVersion 14
+        }
+        gp {
+            minSdkVersion 9
+        }
     }
 
     productFlavors.all {
@@ -31,7 +36,7 @@ android {
 
 //    freeline {
 //        hack true
-//        productFlavor 'gp'
+//        productFlavor 'debug_gp'
 //    }
 
     //修改生成的apk名字

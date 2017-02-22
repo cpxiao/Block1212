@@ -3,8 +3,8 @@ package com.cpxiao.block1212.mode;
 import android.content.Context;
 import android.graphics.Color;
 
+import com.cpxiao.block1212.Extra;
 import com.cpxiao.block1212.R;
-import com.cpxiao.block1212.utils.GameDifficulty;
 
 import java.util.Random;
 
@@ -29,13 +29,13 @@ public class BaseBlock {
 
     private int[][] getBaseData(int gameDifficulty) {
         Random random = new Random();
-        if (gameDifficulty == GameDifficulty.EASY) {
+        if (gameDifficulty == Extra.GameDifficulty.EASY) {
             int tmp = random.nextInt(BaseBlockData.BASE_DATA_EASY.length);
             return BaseBlockData.BASE_DATA_EASY[tmp];
-        } else if (gameDifficulty == GameDifficulty.NORMAL) {
+        } else if (gameDifficulty == Extra.GameDifficulty.NORMAL) {
             int tmp = random.nextInt(BaseBlockData.BASE_DATA_NORMAL.length);
             return BaseBlockData.BASE_DATA_NORMAL[tmp];
-        } else if (gameDifficulty == GameDifficulty.HARD) {
+        } else if (gameDifficulty == Extra.GameDifficulty.HARD) {
             int tmp = random.nextInt(BaseBlockData.BASE_DATA_HARD.length);
             return BaseBlockData.BASE_DATA_HARD[tmp];
         }

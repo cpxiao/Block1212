@@ -27,31 +27,37 @@
         <Button
             android:id="@+id/btn_easy"
             style="@style/HomeBtn"
-            android:layout_width="@dimen/home_btn_width"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/easy"/>
 
         <Button
             android:id="@+id/btn_normal"
             style="@style/HomeBtn"
-            android:layout_width="@dimen/home_btn_width"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/normal"/>
 
         <Button
             android:id="@+id/btn_hard"
             style="@style/HomeBtn"
-            android:layout_width="@dimen/home_btn_width"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/hard"/>
-
 
         <Button
             android:id="@+id/btn_best_score"
             style="@style/HomeBtn"
-            android:layout_width="@dimen/home_btn_width"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/best_score"/>
+
+        <Button
+            android:id="@+id/btn_settings"
+            style="@style/HomeBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/settings"/>
     </LinearLayout>
 
     <include layout="@layout/layout_ads"/>

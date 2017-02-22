@@ -10,12 +10,17 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
-import com.cpxiao.lib.Config;
+import com.cpxiao.androidutils.library.utils.PreferencesUtils;
+import com.cpxiao.androidutils.library.utils.SoundPoolUtils;
+import com.cpxiao.block1212.Extra;
 import com.cpxiao.block1212.R;
 import com.cpxiao.block1212.imp.onGameListener;
 import com.cpxiao.block1212.mode.BaseBlock;
 import com.cpxiao.block1212.mode.BaseBlockData;
 import com.cpxiao.block1212.mode.Block;
+import com.cpxiao.lib.Config;
+
+import java.util.HashMap;
 
 
 /**
@@ -75,6 +80,10 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
     //声明一个画布
     private Canvas mCanvas;
 
+
+    private static final int SOUND_POOL_CLEAR = 0;
+
+
     private GameSurfaceView(Context context) {
         super(context);
         init(context, true);
@@ -90,6 +99,8 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 
 
     private void init(Context c, boolean isNewGame) {
+        initSound(c);
+
         //实例SurfaceHolder
         mSurfaceHolder = getHolder();
         //为SurfaceView添加状态监听
@@ -108,6 +119,13 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
             initBlocks();
         }
         initBaseBlock();
+    }
+
+    private void initSound(Context context) {
+        SoundPoolUtils.getInstance().createSoundPool(20);
+        HashMap<Integer, Integer> map = new HashMap<>();
+        map.put(SOUND_POOL_CLEAR, R.raw.clear);
+        SoundPoolUtils.getInstance().loadSound(context, map);
     }
 
     private void initBlocks(String data) {
@@ -521,6 +539,12 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
         if (line_num_sum > 0) {
             if (DEBUG) {
                 Log.d("CPXIAO", "sum = " + line_num_sum + ",h = " + line_num_h + ",v = " + line_num_v);
+            }
+            boolean isSoundOn = PreferencesUtils.getBoolean(getContext(), Extra.Key.SETTING_SOUND, Extra.Key.SETTING_SOUND_DEFAULT);
+            for (int i = 0; i < line_num_sum; i++) {
+                if (isSoundOn) {
+                    SoundPoolUtils.getInstance().play(SOUND_POOL_CLEAR);
+                }
             }
         }
         mScore += mGameType * ((line_num_sum + 1) * line_num_sum / 2);

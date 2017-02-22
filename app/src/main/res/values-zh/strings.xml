@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools"
+           tools:ignore="MissingTranslation">
+    <string name="app_name">方块 1212</string>
+    <string name="btn_continue">继续</string>
+    <string name="new_game">新游戏</string>
+    <string name="best_score">最高分</string>
+    <string name="settings">设置</string>
+    <string name="quit">退出</string>
+    <string name="game_over">游戏结束</string>
+    <string name="play_again">重试 ?</string>
+    <string name="score">得分</string>
+    <string name="best">最佳</string>
+    <string name="ok">确定</string>
+    <string name="cancel">取消</string>
+
+    <string name="easy">简单</string>
+    <string name="normal">中等</string>
+    <string name="hard">困难</string>
+    <string name="mode">模式</string>
+
+
+    <string name="settings_color_alpha">颜色透明度</string>
+    <string name="settings_sound">音效</string>
+    <string name="settings_bgm">音乐</string>
+    <string name="settings_on">开</string>
+    <string name="settings_off">关</string>
+
+
+</resources>
