@@ -1,4 +1,4 @@
-package com.cpxiao.lib;
+package com.cpxiao.gamelib;
 
 /**
  * @author cpxiao on 2016/3/14.

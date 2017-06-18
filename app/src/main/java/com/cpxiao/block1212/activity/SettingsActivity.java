@@ -9,7 +9,7 @@ import android.widget.TextView;
 import com.cpxiao.androidutils.library.utils.PreferencesUtils;
 import com.cpxiao.block1212.Extra;
 import com.cpxiao.block1212.R;
-import com.cpxiao.lib.activity.BaseActivity;
+import com.cpxiao.gamelib.activity.BaseActivity;
 
 /**
  * @author cpxiao on 2017/02/08.

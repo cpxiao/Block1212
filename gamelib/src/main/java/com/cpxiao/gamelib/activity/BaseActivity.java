@@ -1,16 +1,16 @@
-package com.cpxiao.lib.activity;
+package com.cpxiao.gamelib.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 
-import com.cpxiao.androidutils.library.utils.StringUtils;
-import com.cpxiao.lib.Config;
-import com.cpxiao.block1212.R;
+import com.cpxiao.gamelib.Config;
+import com.cpxiao.gamelib.R;
 import com.facebook.ads.Ad;
 import com.facebook.ads.AdError;
 import com.facebook.ads.AdListener;
@@ -18,6 +18,7 @@ import com.facebook.ads.AdSettings;
 import com.facebook.ads.AdSize;
 import com.facebook.ads.AdView;
 import com.google.android.gms.ads.AdRequest;
+import com.umeng.analytics.MobclickAgent;
 
 
 /**
@@ -42,6 +43,19 @@ public class BaseActivity extends Activity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
+    }
+
 
     @Override
     protected void onDestroy() {
@@ -72,7 +86,7 @@ public class BaseActivity extends Activity {
             Log.d(TAG, "initFbAds: ");
         }
 
-        if (StringUtils.isEmpty(placeId)) {
+        if (TextUtils.isEmpty(placeId)) {
             if (DEBUG) {
                 throw new IllegalArgumentException("placeId is empty!");
             }
@@ -134,7 +148,7 @@ public class BaseActivity extends Activity {
             Log.d(TAG, "initAdMobAds: ");
         }
 
-        if (StringUtils.isEmpty(unitId)) {
+        if (TextUtils.isEmpty(unitId)) {
             if (DEBUG) {
                 throw new IllegalArgumentException("unitId is empty!");
             }
@@ -208,6 +222,9 @@ public class BaseActivity extends Activity {
     private void addToLayout(View view) {
         if (DEBUG) {
             Log.d(TAG, "addToLayout: ");
+        }
+        if (view == null) {
+            return;
         }
         LinearLayout layout = (LinearLayout) findViewById(R.id.ads_layout);
         layout.removeAllViews();

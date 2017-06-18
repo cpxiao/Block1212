@@ -16,7 +16,7 @@ import com.cpxiao.block1212.imp.onGameListener;
 import com.cpxiao.block1212.views.GameOverDialog;
 import com.cpxiao.block1212.views.GameSurfaceView;
 import com.cpxiao.block1212.views.SettingsDialog;
-import com.cpxiao.lib.activity.BaseActivity;
+import com.cpxiao.gamelib.activity.BaseActivity;
 
 
 /**
@@ -39,10 +39,6 @@ public class GameActivity extends BaseActivity implements onGameListener {
      * 最高分
      */
     private TextView mBestScoreView;
-    /**
-     * 设置
-     */
-    private ImageView mSettingsView;
     /**
      * 游戏View
      */
@@ -102,17 +98,12 @@ public class GameActivity extends BaseActivity implements onGameListener {
 
         updateBestScore(0, mGameDifficulty);
 
-        mSettingsView = (ImageView) findViewById(R.id.btn_settings);
-        mSettingsView.setOnClickListener(new View.OnClickListener() {
+        //设置
+        ImageView settingsView = (ImageView) findViewById(R.id.btn_settings);
+        settingsView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final SettingsDialog dialog = new SettingsDialog(GameActivity.this);
-                dialog.setButtonOK(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialog.dismiss();
-                    }
-                });
                 dialog.show();
             }
         });

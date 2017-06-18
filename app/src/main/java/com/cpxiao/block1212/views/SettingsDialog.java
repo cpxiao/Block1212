@@ -17,17 +17,13 @@ public class SettingsDialog extends Dialog implements View.OnClickListener {
 
     private TextView mSound;
     private TextView mMusic;
-    private TextView mBtnOK;
-
 
     public SettingsDialog(Context context) {
         super(context, R.style.ScoreDialog);
         initWidget();
-
     }
 
     private void initWidget() {
-
         setContentView(R.layout.dialog_settings);
         // 点击外面区域不会让dialog消失
         setCanceledOnTouchOutside(false);
@@ -35,6 +31,7 @@ public class SettingsDialog extends Dialog implements View.OnClickListener {
 
         findViewById(R.id.layout_sound).setOnClickListener(this);
         findViewById(R.id.layout_music).setOnClickListener(this);
+        findViewById(R.id.dialog_btn_ok).setOnClickListener(this);
 
         mSound = (TextView) findViewById(R.id.tv_sound);
         mMusic = (TextView) findViewById(R.id.tv_music);
@@ -53,12 +50,6 @@ public class SettingsDialog extends Dialog implements View.OnClickListener {
             mMusic.setText(R.string.settings_off);
         }
 
-        mBtnOK = (TextView) findViewById(R.id.dialog_btn_ok);
-    }
-
-
-    public void setButtonOK(View.OnClickListener click) {
-        mBtnOK.setOnClickListener(click);
     }
 
 
@@ -88,6 +79,8 @@ public class SettingsDialog extends Dialog implements View.OnClickListener {
                 mMusic.setText(R.string.settings_on);
                 MediaPlayerUtils.getInstance().start();
             }
+        } else if (id == R.id.dialog_btn_ok) {
+            dismiss();
         }
     }
 }

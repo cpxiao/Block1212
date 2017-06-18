@@ -3,24 +3,25 @@ apply plugin: 'com.jakewharton.hugo'
 //apply plugin: 'com.antfortune.freeline'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.3"
+    compileSdkVersion 25
+    buildToolsVersion "25.0.2"
 
     defaultConfig {
         applicationId "com.cpxiao.block1212"
         minSdkVersion 9//使用freeline测试的时候最低14，之后改回对应版本9
         targetSdkVersion 23
-        versionCode 110
-        versionName "1.1.0"
+        versionCode 112
+        versionName "1.1.2"
     }
     buildTypes {
         release {
-            minifyEnabled true
+            minifyEnabled true  //混淆
             shrinkResources true // 移除无用的resource文件
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
 
+    //多渠道打包
     productFlavors {
         debug_gp {
             minSdkVersion 14
@@ -31,7 +32,7 @@ android {
     }
 
     productFlavors.all {
-//        flavor -> flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
+        flavor -> flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
     }
 
 //    freeline {
@@ -68,18 +69,8 @@ android {
 }
 
 dependencies {
-    testCompile 'junit:junit:4.12'
-
     compile project(':AndroidUtils:library')
-
-    //Facebook广告 start
-    compile files('libs/AudienceNetwork_v4.7.jar')
-    //Facebook广告 end
-
-
-    compile 'com.google.firebase:firebase-ads:9.4.0'
-
-
+    compile project(':gamelib')
 }
 
 apply plugin: 'com.google.gms.google-services'

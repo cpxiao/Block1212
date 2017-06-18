@@ -9,6 +9,13 @@
     <!--facebook ad end-->
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
 
+    <!--友盟统计需要权限 start-->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <!--友盟统计需要权限 end-->
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/app_icon"
@@ -33,6 +40,13 @@
         <activity
             android:name="com.cpxiao.block1212.activity.SettingsActivity"
             android:screenOrientation="portrait"/>
+
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="593f39058630f52c870012b6"/>
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="${UMENG_CHANNEL_VALUE}" />
 
 
     </application>

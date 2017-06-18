@@ -18,7 +18,7 @@ import com.cpxiao.block1212.imp.onGameListener;
 import com.cpxiao.block1212.mode.BaseBlock;
 import com.cpxiao.block1212.mode.BaseBlockData;
 import com.cpxiao.block1212.mode.Block;
-import com.cpxiao.lib.Config;
+import com.cpxiao.gamelib.Config;
 
 import java.util.HashMap;
 
