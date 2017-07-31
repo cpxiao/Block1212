@@ -4,7 +4,8 @@ package com.cpxiao.block1212.mode;
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
 
-import com.cpxiao.block1212.R;
+import com.cpxiao.R;
+
 
 /**
  * @author cpxiao on 2015/10/19.

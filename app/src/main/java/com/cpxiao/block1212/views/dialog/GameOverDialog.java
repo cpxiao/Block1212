@@ -1,11 +1,12 @@
-package com.cpxiao.block1212.views;
+package com.cpxiao.block1212.views.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
 import android.view.View;
 import android.widget.TextView;
 
-import com.cpxiao.block1212.R;
+import com.cpxiao.R;
+
 
 /**
  * @author cpxiao on 2015/10/22.

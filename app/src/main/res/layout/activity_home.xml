@@ -21,8 +21,7 @@
             android:paddingBottom="30dp"
             android:text="@string/app_name"
             android:textColor="@android:color/white"
-            android:textSize="42sp"
-            android:textStyle="bold"/>
+            android:textSize="36sp"/>
 
         <Button
             android:id="@+id/btn_easy"
@@ -46,6 +45,13 @@
             android:text="@string/hard"/>
 
         <Button
+            android:id="@+id/btn_insane"
+            style="@style/HomeBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/insane"/>
+
+        <Button
             android:id="@+id/btn_best_score"
             style="@style/HomeBtn"
             android:layout_width="match_parent"
@@ -58,6 +64,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/settings"/>
+
+        <Button
+            android:id="@+id/btn_quit"
+            style="@style/HomeBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/quit"/>
     </LinearLayout>
 
     <include layout="@layout/layout_ads_50"/>

@@ -1,13 +1,13 @@
-package com.cpxiao.block1212.views;
+package com.cpxiao.block1212.views.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
 import android.view.View;
 import android.widget.TextView;
 
+import com.cpxiao.R;
 import com.cpxiao.androidutils.library.utils.PreferencesUtils;
 import com.cpxiao.block1212.Extra;
-import com.cpxiao.block1212.R;
 
 /**
  * @author cpxiao on 2015/10/22.
@@ -28,25 +28,21 @@ public class BestScoreDialog extends Dialog {
         setCanceledOnTouchOutside(false);
         setCancelable(true);
 
-        TextView easyLabelTV = (TextView) findViewById(R.id.easy_label);
-        String easyLabel = getContext().getString(R.string.easy) + ": ";
-        easyLabelTV.setText(easyLabel);
-        TextView normalLabelTV = (TextView) findViewById(R.id.normal_label);
-        String normalLabel = getContext().getString(R.string.normal) + ": ";
-        normalLabelTV.setText(normalLabel);
-        TextView hardLabelTV = (TextView) findViewById(R.id.hard_label);
-        String hardLabel = getContext().getString(R.string.hard) + ": ";
-        hardLabelTV.setText(hardLabel);
-
         TextView easyScoreTV = (TextView) findViewById(R.id.easy_score);
         String easyScore = String.valueOf(PreferencesUtils.getInt(getContext(), Extra.Key.KEY_BEST_SCORE_EASY, 0));
         easyScoreTV.setText(easyScore);
+
         TextView normalScoreTV = (TextView) findViewById(R.id.normal_score);
         String normalScore = String.valueOf(PreferencesUtils.getInt(getContext(), Extra.Key.KEY_BEST_SCORE_NORMAL, 0));
         normalScoreTV.setText(normalScore);
+
         TextView hardScoreTV = (TextView) findViewById(R.id.hard_score);
         String hardScore = String.valueOf(PreferencesUtils.getInt(getContext(), Extra.Key.KEY_BEST_SCORE_HARD, 0));
         hardScoreTV.setText(hardScore);
+
+        TextView insaneScoreTV = (TextView) findViewById(R.id.insane_score);
+        String insaneScore = String.valueOf(PreferencesUtils.getInt(getContext(), Extra.Key.KEY_BEST_SCORE_INSANE, 0));
+        insaneScoreTV.setText(insaneScore);
 
         mBtnOK = (TextView) findViewById(R.id.dialog_btn_ok);
     }

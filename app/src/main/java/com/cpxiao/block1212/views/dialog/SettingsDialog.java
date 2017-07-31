@@ -1,14 +1,14 @@
-package com.cpxiao.block1212.views;
+package com.cpxiao.block1212.views.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
 import android.view.View;
 import android.widget.TextView;
 
+import com.cpxiao.R;
 import com.cpxiao.androidutils.library.utils.MediaPlayerUtils;
 import com.cpxiao.androidutils.library.utils.PreferencesUtils;
 import com.cpxiao.block1212.Extra;
-import com.cpxiao.block1212.R;
 
 /**
  * @author cpxiao on 2015/10/22.

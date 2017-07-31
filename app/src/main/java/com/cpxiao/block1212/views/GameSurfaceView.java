@@ -10,10 +10,10 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
+import com.cpxiao.R;
 import com.cpxiao.androidutils.library.utils.PreferencesUtils;
 import com.cpxiao.androidutils.library.utils.SoundPoolUtils;
 import com.cpxiao.block1212.Extra;
-import com.cpxiao.block1212.R;
 import com.cpxiao.block1212.imp.onGameListener;
 import com.cpxiao.block1212.mode.BaseBlock;
 import com.cpxiao.block1212.mode.BaseBlockData;

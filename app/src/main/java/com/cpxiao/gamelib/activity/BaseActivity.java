@@ -1,16 +1,17 @@
 package com.cpxiao.gamelib.activity;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 
+import com.cpxiao.R;
 import com.cpxiao.gamelib.Config;
-import com.cpxiao.gamelib.R;
 import com.facebook.ads.Ad;
 import com.facebook.ads.AdError;
 import com.facebook.ads.AdListener;
@@ -23,10 +24,11 @@ import com.umeng.analytics.MobclickAgent;
 
 /**
  * @author cpxiao on 2016/3/14.
+ * @version update facebook ad on 2017/7/31.
  */
-public class BaseActivity extends Activity {
+public class BaseActivity extends AppCompatActivity {
     protected static final boolean DEBUG = Config.DEBUG;
-    protected final String TAG = "CPXIAO--" + getClass().getSimpleName();
+    protected final String TAG = getClass().getSimpleName();
 
     protected AdView mFbAdView;
     protected com.google.android.gms.ads.AdView mAdMobAdView;
@@ -39,8 +41,7 @@ public class BaseActivity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
 
         //隐藏状态栏部分（电池电量、时间等部分）
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
     }
 
@@ -59,9 +60,6 @@ public class BaseActivity extends Activity {
 
     @Override
     protected void onDestroy() {
-        if (DEBUG) {
-            Log.d(TAG, "onDestroy: ");
-        }
         if (mFbAdView != null) {
             mFbAdView.destroy();
             mFbAdView = null;
@@ -82,10 +80,6 @@ public class BaseActivity extends Activity {
     }
 
     private void initFbAds(String placeId, AdSize adSize) {
-        if (DEBUG) {
-            Log.d(TAG, "initFbAds: ");
-        }
-
         if (TextUtils.isEmpty(placeId)) {
             if (DEBUG) {
                 throw new IllegalArgumentException("placeId is empty!");
@@ -94,13 +88,11 @@ public class BaseActivity extends Activity {
         }
 
         mFbAdView = new AdView(this, placeId, adSize);
-
         mFbAdView.setAdListener(new AdListener() {
-
             @Override
-            public void onError(Ad ad, AdError error) {
+            public void onError(Ad ad, AdError adError) {
                 if (DEBUG) {
-                    Log.d(TAG, "onError: " + error.getErrorCode() + "," + error.getErrorMessage());
+                    Log.d(TAG, "onError: " + adError.getErrorCode() + "," + adError.getErrorMessage());
                 }
             }
 
@@ -119,17 +111,20 @@ public class BaseActivity extends Activity {
                 }
             }
 
+//            @Override
+//            public void onLoggingImpression(Ad ad) {
+//
+//            }
         });
         if (DEBUG) {
-            //            AdSettings.addTestDevice("7d7fcc8ff3a053e48671f85990f1ab6d");//nexus 5
-            AdSettings.addTestDevice("55c4f301d7c1183f1fa6ede6b3f2fe2e");//坚果
+            AdSettings.addTestDevice("26ca0f5949f0cdb8fc823066625756dc");//20170731 坚果Pro
         }
         if (DEBUG) {
             Log.d(TAG, "initFbAds:  mFbAdView.loadAd();");
         }
         mFbAdView.loadAd();
-
     }
+
 
     protected void initAdMobAds50(String placementId) {
         initAdMobAds(placementId, com.google.android.gms.ads.AdSize.SMART_BANNER);
@@ -144,10 +139,6 @@ public class BaseActivity extends Activity {
     }
 
     private void initAdMobAds(String unitId, com.google.android.gms.ads.AdSize adSize) {
-        if (DEBUG) {
-            Log.d(TAG, "initAdMobAds: ");
-        }
-
         if (TextUtils.isEmpty(unitId)) {
             if (DEBUG) {
                 throw new IllegalArgumentException("unitId is empty!");
@@ -206,7 +197,7 @@ public class BaseActivity extends Activity {
         if (DEBUG) {
             adRequest = new AdRequest.Builder()
                     .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)// All emulators
-                    .addTestDevice("E89B10531C8CCB95C447A97261F6AA0E")//坚果
+                    .addTestDevice("67F59060394DB36B95B18F5EE5B5D735")//20170731 坚果pro
                     .build();
         } else {
             adRequest = new AdRequest.Builder()
@@ -220,14 +211,22 @@ public class BaseActivity extends Activity {
     }
 
     private void addToLayout(View view) {
-        if (DEBUG) {
-            Log.d(TAG, "addToLayout: ");
-        }
         if (view == null) {
             return;
         }
+        removeFromParent(view);
         LinearLayout layout = (LinearLayout) findViewById(R.id.ads_layout);
         layout.removeAllViews();
         layout.addView(view);
+    }
+
+    private void removeFromParent(View view) {
+        if (view == null) {
+            return;
+        }
+        ViewGroup parent = (ViewGroup) view.getParent();
+        if (parent != null) {
+            parent.removeView(view);
+        }
     }
 }

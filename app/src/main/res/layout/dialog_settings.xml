@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="@dimen/dialog_width"
     android:layout_height="wrap_content"
-    android:background="@color/color_settings_bg"
+    android:background="@drawable/dialog_settings_bg"
     android:gravity="center"
     android:orientation="vertical"
     android:padding="10dp">
@@ -15,35 +15,13 @@
         android:padding="10dp"
         android:text="@string/settings"
         android:textColor="@android:color/white"
-        android:textSize="32sp"
-        android:textStyle="bold"/>
+        android:textSize="32sp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical">
-
-        <LinearLayout
-            android:id="@+id/layout_color_transparency"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/settings_item_height"
-            android:visibility="gone">
-
-            <TextView
-                style="@style/SettingsLabel"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="@string/settings_color_alpha"/>
-
-            <TextView
-                style="@style/SettingsValue"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"/>
-
-        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/layout_sound"

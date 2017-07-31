@@ -10,6 +10,7 @@ public final class Extra {
         public static final int EASY = 1;
         public static final int NORMAL = 2;
         public static final int HARD = 3;
+        public static final int INSANE = 4;
         public static final int DEFAULT = EASY;
     }
 
@@ -31,7 +32,7 @@ public final class Extra {
         public static final String KEY_BEST_SCORE_EASY = "KEY_BEST_SCORE_EASY";
         public static final String KEY_BEST_SCORE_NORMAL = "KEY_BEST_SCORE_NORMAL";
         public static final String KEY_BEST_SCORE_HARD = "KEY_BEST_SCORE_HARD";
-
+        public static final String KEY_BEST_SCORE_INSANE = "KEY_BEST_SCORE_INSANE";
 
         /**
          * 音效开关，默认开

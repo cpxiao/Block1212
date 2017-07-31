@@ -10,8 +10,8 @@ android {
         applicationId "com.cpxiao.block1212"
         minSdkVersion 9//使用freeline测试的时候最低14，之后改回对应版本9
         targetSdkVersion 23
-        versionCode 112
-        versionName "1.1.2"
+        versionCode 115
+        versionName "1.1.5"
     }
     buildTypes {
         release {
@@ -23,12 +23,7 @@ android {
 
     //多渠道打包
     productFlavors {
-        debug_gp {
-            minSdkVersion 14
-        }
-        gp {
-            minSdkVersion 9
-        }
+        gp {}
     }
 
     productFlavors.all {
@@ -70,7 +65,22 @@ android {
 
 dependencies {
     compile project(':AndroidUtils:library')
-    compile project(':gamelib')
+    compile 'com.android.support:appcompat-v7:25.3.1'
+
+    /**
+     * Ads Start
+     */
+    //友盟统计
+    compile 'com.umeng.analytics:analytics:latest.integration'
+    //Facebook广告
+    compile files('libs/AudienceNetwork_v4.7.jar')
+//    compile 'com.facebook.android:audience-network-sdk:4.+'
+//    compile 'com.facebook.android:audience-network-sdk:4.25.0'
+    //AdMob广告
+    compile 'com.google.firebase:firebase-ads:9.4.0'
+    /**
+     * Ads End
+     */
 }
 
 apply plugin: 'com.google.gms.google-services'

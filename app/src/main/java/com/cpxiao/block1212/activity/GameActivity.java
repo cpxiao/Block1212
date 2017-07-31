@@ -8,15 +8,16 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.cpxiao.R;
 import com.cpxiao.androidutils.library.utils.MediaPlayerUtils;
 import com.cpxiao.androidutils.library.utils.PreferencesUtils;
 import com.cpxiao.block1212.Extra;
-import com.cpxiao.block1212.R;
 import com.cpxiao.block1212.imp.onGameListener;
-import com.cpxiao.block1212.views.GameOverDialog;
+import com.cpxiao.block1212.views.dialog.GameOverDialog;
 import com.cpxiao.block1212.views.GameSurfaceView;
-import com.cpxiao.block1212.views.SettingsDialog;
+import com.cpxiao.block1212.views.dialog.SettingsDialog;
 import com.cpxiao.gamelib.activity.BaseActivity;
+
 
 
 /**
@@ -126,6 +127,8 @@ public class GameActivity extends BaseActivity implements onGameListener {
             text = getResources().getString(R.string.normal);
         } else if (gameDifficulty == Extra.GameDifficulty.HARD) {
             text = getResources().getString(R.string.hard);
+        } else if (gameDifficulty == Extra.GameDifficulty.INSANE) {
+            text = getResources().getString(R.string.insane);
         }
         text = text + " " + getResources().getString(R.string.mode);
         mGameModeView.setText(text);
@@ -149,6 +152,8 @@ public class GameActivity extends BaseActivity implements onGameListener {
             bestScore = PreferencesUtils.getInt(getApplicationContext(), Extra.Key.KEY_BEST_SCORE_NORMAL, 0);
         } else if (gameDifficulty == Extra.GameDifficulty.HARD) {
             bestScore = PreferencesUtils.getInt(getApplicationContext(), Extra.Key.KEY_BEST_SCORE_HARD, 0);
+        } else if (gameDifficulty == Extra.GameDifficulty.INSANE) {
+            bestScore = PreferencesUtils.getInt(getApplicationContext(), Extra.Key.KEY_BEST_SCORE_INSANE, 0);
         }
         if (score > bestScore) {
             bestScore = score;
@@ -158,6 +163,8 @@ public class GameActivity extends BaseActivity implements onGameListener {
                 PreferencesUtils.putInt(getApplicationContext(), Extra.Key.KEY_BEST_SCORE_NORMAL, score);
             } else if (gameDifficulty == Extra.GameDifficulty.HARD) {
                 PreferencesUtils.putInt(getApplicationContext(), Extra.Key.KEY_BEST_SCORE_HARD, score);
+            } else if (gameDifficulty == Extra.GameDifficulty.INSANE) {
+                PreferencesUtils.putInt(getApplicationContext(), Extra.Key.KEY_BEST_SCORE_INSANE, score);
             }
         }
         setBestScoreView(bestScore);

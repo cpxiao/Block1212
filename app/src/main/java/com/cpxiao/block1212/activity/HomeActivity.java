@@ -6,9 +6,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.cpxiao.R;
 import com.cpxiao.block1212.Extra;
-import com.cpxiao.block1212.R;
-import com.cpxiao.block1212.views.BestScoreDialog;
+import com.cpxiao.block1212.views.dialog.BestScoreDialog;
 import com.cpxiao.gamelib.activity.BaseActivity;
 
 /**
@@ -37,11 +37,17 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
         Button btnHard = (Button) findViewById(R.id.btn_hard);
         btnHard.setOnClickListener(this);
 
+        Button btnInsane = (Button) findViewById(R.id.btn_insane);
+        btnInsane.setOnClickListener(this);
+
         Button btnBestScore = (Button) findViewById(R.id.btn_best_score);
         btnBestScore.setOnClickListener(this);
 
         Button btnSettings = (Button) findViewById(R.id.btn_settings);
         btnSettings.setOnClickListener(this);
+
+        Button btnQuti = (Button) findViewById(R.id.btn_quit);
+        btnQuti.setOnClickListener(this);
 
     }
 
@@ -60,6 +66,10 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
             Bundle bundle = GameActivity.makeBundle(true, Extra.GameDifficulty.HARD);
             Intent intent = GameActivity.makeIntent(HomeActivity.this, bundle);
             startActivity(intent);
+        } else if (id == R.id.btn_insane) {
+            Bundle bundle = GameActivity.makeBundle(true, Extra.GameDifficulty.INSANE);
+            Intent intent = GameActivity.makeIntent(HomeActivity.this, bundle);
+            startActivity(intent);
         } else if (id == R.id.btn_best_score) {
             final BestScoreDialog dialog = new BestScoreDialog(HomeActivity.this);
             dialog.setButtonOK(new View.OnClickListener() {
@@ -72,6 +82,8 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
         } else if (id == R.id.btn_settings) {
             Intent intent = SettingsActivity.makeIntent(HomeActivity.this, null);
             startActivity(intent);
+        } else if (id == R.id.btn_quit) {
+            finish();
         }
     }
 

@@ -6,9 +6,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.cpxiao.R;
 import com.cpxiao.androidutils.library.utils.PreferencesUtils;
 import com.cpxiao.block1212.Extra;
-import com.cpxiao.block1212.R;
 import com.cpxiao.gamelib.activity.BaseActivity;
 
 /**
