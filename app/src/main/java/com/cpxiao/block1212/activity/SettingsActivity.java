@@ -4,17 +4,20 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cpxiao.R;
 import com.cpxiao.androidutils.library.utils.PreferencesUtils;
-import com.cpxiao.block1212.Extra;
-import com.cpxiao.gamelib.activity.BaseActivity;
+import com.cpxiao.block1212.mode.extra.Extra;
+import com.cpxiao.gamelib.activity.BaseZAdsActivity;
+import com.cpxiao.zads.ZAdManager;
+import com.cpxiao.zads.core.ZAdPosition;
 
 /**
  * @author cpxiao on 2017/02/08.
  */
-public class SettingsActivity extends BaseActivity implements View.OnClickListener {
+public class SettingsActivity extends BaseZAdsActivity implements View.OnClickListener {
 
     private TextView mSound;
     private TextView mMusic;
@@ -24,12 +27,20 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
         initWidget();
-        initFbAds50("299750750363934_300182613654081");
-        initAdMobAds50("ca-app-pub-4157365005379790/6587357667");
+        //        initFbAds50("299750750363934_300182613654081");
+        //        initAdMobAds50("ca-app-pub-4157365005379790/8151240158");
+
+        LinearLayout layout = (LinearLayout) findViewById(R.id.layout_ads);
+        ZAdManager.getInstance().loadAd(this, ZAdPosition.POSITION_SETTINGS, layout);
+    }
+
+    @Override
+    protected void onDestroy() {
+        ZAdManager.getInstance().destroy(this, ZAdPosition.POSITION_SETTINGS);
+        super.onDestroy();
     }
 
     private void initWidget() {
-        findViewById(R.id.layout_color_transparency).setOnClickListener(this);
         findViewById(R.id.layout_sound).setOnClickListener(this);
         findViewById(R.id.layout_music).setOnClickListener(this);
         mSound = (TextView) findViewById(R.id.tv_sound);
@@ -53,9 +64,7 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        if (id == R.id.layout_color_transparency) {
-
-        } else if (id == R.id.layout_sound) {
+        if (id == R.id.layout_sound) {
             boolean isSoundOn = PreferencesUtils.getBoolean(getApplicationContext(), Extra.Key.SETTING_SOUND, Extra.Key.SETTING_SOUND_DEFAULT);
             if (isSoundOn) {
                 PreferencesUtils.putBoolean(getApplicationContext(), Extra.Key.SETTING_SOUND, false);

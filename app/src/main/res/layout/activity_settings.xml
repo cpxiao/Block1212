@@ -13,95 +13,63 @@
         android:layout_marginTop="30dp"
         android:gravity="center"
         android:padding="30dp"
-        android:text="@string/app_name"
+        android:text="@string/settings"
         android:textColor="@android:color/white"
-        android:textSize="42sp"/>
+        android:textSize="36sp"/>
 
-    <ScrollView
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:orientation="vertical"
         android:padding="20dp">
 
+
         <LinearLayout
+            android:id="@+id/layout_sound"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="vertical">
+            android:layout_height="@dimen/settings_item_height">
 
+            <TextView
+                style="@style/SettingsLabel"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/settings_sound"/>
 
-            <LinearLayout
-                android:id="@+id/layout_color_transparency"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/settings_item_height"
-                android:visibility="invisible">
-
-                <TextView
-                    style="@style/SettingsLabel"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="@string/settings_color_alpha"/>
-
-                <TextView
-                    style="@style/SettingsValue"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"/>
-
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:id="@+id/layout_sound"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/settings_item_height">
-
-                <TextView
-                    style="@style/SettingsLabel"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="@string/settings_sound"/>
-
-                <TextView
-                    android:id="@+id/tv_sound"
-                    style="@style/SettingsValue"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"/>
-
-            </LinearLayout>
-
-            <!--<View-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="1dp"-->
-                <!--android:background="#4160d1"/>-->
-
-            <LinearLayout
-                android:id="@+id/layout_music"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/settings_item_height">
-
-                <TextView
-                    style="@style/SettingsLabel"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="@string/settings_bgm"/>
-
-                <TextView
-                    android:id="@+id/tv_music"
-                    style="@style/SettingsValue"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"/>
-
-            </LinearLayout>
-
+            <TextView
+                android:id="@+id/tv_sound"
+                style="@style/SettingsValue"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
 
         </LinearLayout>
-    </ScrollView>
+
+        <LinearLayout
+            android:id="@+id/layout_music"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/settings_item_height">
+
+            <TextView
+                style="@style/SettingsLabel"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/settings_bgm"/>
+
+            <TextView
+                android:id="@+id/tv_music"
+                style="@style/SettingsValue"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
 
     <include layout="@layout/layout_ads"/>
 </LinearLayout>

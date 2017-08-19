@@ -8,10 +8,10 @@ android {
 
     defaultConfig {
         applicationId "com.cpxiao.block1212"
-        minSdkVersion 9//使用freeline测试的时候最低14，之后改回对应版本9
+        minSdkVersion 15//使用freeline测试的时候最低14，之后改回对应版本9
         targetSdkVersion 23
-        versionCode 115
-        versionName "1.1.5"
+        versionCode 201
+        versionName "2.0.1"
     }
     buildTypes {
         release {
@@ -73,11 +73,14 @@ dependencies {
     //友盟统计
     compile 'com.umeng.analytics:analytics:latest.integration'
     //Facebook广告
-    compile files('libs/AudienceNetwork_v4.7.jar')
+//    compile files('libs/AudienceNetwork_v4.7.jar')
 //    compile 'com.facebook.android:audience-network-sdk:4.+'
-//    compile 'com.facebook.android:audience-network-sdk:4.25.0'
+    compile 'com.facebook.android:audience-network-sdk:4.25.0'
     //AdMob广告
-    compile 'com.google.firebase:firebase-ads:9.4.0'
+//    compile 'com.google.firebase:firebase-ads:9.4.0'
+    compile 'com.google.firebase:firebase-ads:11.0.0'
+    //ZAds SDK
+    compile 'com.github.bumptech.glide:glide:3.7.0'//要放在后面
     /**
      * Ads End
      */

@@ -7,7 +7,7 @@ import android.widget.TextView;
 
 import com.cpxiao.R;
 import com.cpxiao.androidutils.library.utils.PreferencesUtils;
-import com.cpxiao.block1212.Extra;
+import com.cpxiao.block1212.mode.extra.Extra;
 
 /**
  * @author cpxiao on 2015/10/22.

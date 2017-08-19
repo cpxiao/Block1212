@@ -11,19 +11,20 @@ import android.widget.TextView;
 import com.cpxiao.R;
 import com.cpxiao.androidutils.library.utils.MediaPlayerUtils;
 import com.cpxiao.androidutils.library.utils.PreferencesUtils;
-import com.cpxiao.block1212.Extra;
 import com.cpxiao.block1212.imp.onGameListener;
-import com.cpxiao.block1212.views.dialog.GameOverDialog;
+import com.cpxiao.block1212.mode.extra.Extra;
 import com.cpxiao.block1212.views.GameSurfaceView;
+import com.cpxiao.block1212.views.dialog.GameOverDialog;
 import com.cpxiao.block1212.views.dialog.SettingsDialog;
-import com.cpxiao.gamelib.activity.BaseActivity;
-
+import com.cpxiao.gamelib.activity.BaseZAdsActivity;
+import com.cpxiao.zads.ZAdManager;
+import com.cpxiao.zads.core.ZAdPosition;
 
 
 /**
  * @author cpxiao on 2015/10/20.
  */
-public class GameActivity extends BaseActivity implements onGameListener {
+public class GameActivity extends BaseZAdsActivity implements onGameListener {
     /**
      * 游戏难度
      */
@@ -53,8 +54,11 @@ public class GameActivity extends BaseActivity implements onGameListener {
 
         setContentView(R.layout.activity_game);
         initWidget();
-        initFbAds50("236636880101032_236637590100961");
-        initAdMobAds50("ca-app-pub-4157365005379790/7898093661");
+        //        initFbAds50("236636880101032_236637590100961");
+        //        initAdMobAds50("ca-app-pub-4157365005379790/7898093661");
+
+        LinearLayout layout = (LinearLayout) findViewById(R.id.layout_ads);
+        ZAdManager.getInstance().loadAd(this, ZAdPosition.POSITION_GAME, layout);
     }
 
     @Override
@@ -75,6 +79,7 @@ public class GameActivity extends BaseActivity implements onGameListener {
 
     @Override
     protected void onDestroy() {
+        ZAdManager.getInstance().destroy(this, ZAdPosition.POSITION_GAME);
         super.onDestroy();
         MediaPlayerUtils.getInstance().stop();
     }

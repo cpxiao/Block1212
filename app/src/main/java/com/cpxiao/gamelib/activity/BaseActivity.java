@@ -11,7 +11,7 @@ import android.view.WindowManager;
 import android.widget.LinearLayout;
 
 import com.cpxiao.R;
-import com.cpxiao.gamelib.Config;
+import com.cpxiao.AppConfig;
 import com.facebook.ads.Ad;
 import com.facebook.ads.AdError;
 import com.facebook.ads.AdListener;
@@ -24,10 +24,10 @@ import com.umeng.analytics.MobclickAgent;
 
 /**
  * @author cpxiao on 2016/3/14.
- * @version update facebook ad on 2017/7/31.
+ * @version cpxiao on 2017/7/31 update facebook ad.
  */
 public class BaseActivity extends AppCompatActivity {
-    protected static final boolean DEBUG = Config.DEBUG;
+    protected static final boolean DEBUG = AppConfig.DEBUG;
     protected final String TAG = getClass().getSimpleName();
 
     protected AdView mFbAdView;
@@ -111,10 +111,12 @@ public class BaseActivity extends AppCompatActivity {
                 }
             }
 
-//            @Override
-//            public void onLoggingImpression(Ad ad) {
-//
-//            }
+            @Override
+            public void onLoggingImpression(Ad ad) {
+                if (DEBUG) {
+                    Log.d(TAG, "onLoggingImpression: ");
+                }
+            }
         });
         if (DEBUG) {
             AdSettings.addTestDevice("26ca0f5949f0cdb8fc823066625756dc");//20170731 坚果Pro
@@ -215,7 +217,7 @@ public class BaseActivity extends AppCompatActivity {
             return;
         }
         removeFromParent(view);
-        LinearLayout layout = (LinearLayout) findViewById(R.id.ads_layout);
+        LinearLayout layout = (LinearLayout) findViewById(R.id.layout_ads);
         layout.removeAllViews();
         layout.addView(view);
     }

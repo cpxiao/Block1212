@@ -1,6 +1,4 @@
-package com.cpxiao.block1212.mode;
-
-import com.cpxiao.block1212.Extra;
+package com.cpxiao.block1212.mode.extra;
 
 import java.util.Random;
 

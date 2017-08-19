@@ -8,7 +8,7 @@ import android.widget.TextView;
 import com.cpxiao.R;
 import com.cpxiao.androidutils.library.utils.MediaPlayerUtils;
 import com.cpxiao.androidutils.library.utils.PreferencesUtils;
-import com.cpxiao.block1212.Extra;
+import com.cpxiao.block1212.mode.extra.Extra;
 
 /**
  * @author cpxiao on 2015/10/22.
@@ -57,9 +57,8 @@ public class SettingsDialog extends Dialog implements View.OnClickListener {
     public void onClick(View v) {
         Context context = getContext();
         int id = v.getId();
-        if (id == R.id.layout_color_transparency) {
 
-        } else if (id == R.id.layout_sound) {
+        if (id == R.id.layout_sound) {
             boolean isSoundOn = PreferencesUtils.getBoolean(context, Extra.Key.SETTING_SOUND, Extra.Key.SETTING_SOUND_DEFAULT);
             if (isSoundOn) {
                 PreferencesUtils.putBoolean(context, Extra.Key.SETTING_SOUND, false);

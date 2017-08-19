@@ -1,20 +1,25 @@
 package com.cpxiao.block1212.activity;
 
-import android.content.Context;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 
 import com.cpxiao.R;
-import com.cpxiao.block1212.Extra;
+import com.cpxiao.block1212.mode.extra.Extra;
 import com.cpxiao.block1212.views.dialog.BestScoreDialog;
-import com.cpxiao.gamelib.activity.BaseActivity;
+import com.cpxiao.gamelib.activity.BaseZAdsActivity;
+import com.cpxiao.zads.ZAdManager;
+import com.cpxiao.zads.core.ZAdPosition;
 
 /**
  * @author cpxiao on 2015/10/20.
  */
-public class HomeActivity extends BaseActivity implements View.OnClickListener {
+public class HomeActivity extends BaseZAdsActivity implements View.OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,8 +27,18 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
         setContentView(R.layout.activity_home);
 
         initWidget();
-        initFbAds50("236636880101032_236637330100987");
-        initAdMobAds50("ca-app-pub-4157365005379790/3703396465");
+        //        initFbAds50("236636880101032_236637330100987");
+        //        initAdMobAds50("ca-app-pub-4157365005379790/3703396465");
+
+        ZAdManager.getInstance().init(this);
+        LinearLayout layout = (LinearLayout) findViewById(R.id.layout_ads);
+        ZAdManager.getInstance().loadAd(this, ZAdPosition.POSITION_HOME, layout);
+    }
+
+    @Override
+    protected void onDestroy() {
+        ZAdManager.getInstance().destroyAllPosition(this);
+        super.onDestroy();
     }
 
     private void initWidget() {
@@ -46,8 +61,8 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
         Button btnSettings = (Button) findViewById(R.id.btn_settings);
         btnSettings.setOnClickListener(this);
 
-        Button btnQuti = (Button) findViewById(R.id.btn_quit);
-        btnQuti.setOnClickListener(this);
+        Button btnQuit = (Button) findViewById(R.id.btn_quit);
+        btnQuit.setOnClickListener(this);
 
     }
 
@@ -83,14 +98,36 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
             Intent intent = SettingsActivity.makeIntent(HomeActivity.this, null);
             startActivity(intent);
         } else if (id == R.id.btn_quit) {
-            finish();
+            showQuitConfirmDialog();
         }
     }
 
 
-    public static void come2me(Context context) {
-        Intent intent = new Intent(context, HomeActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        context.startActivity(intent);
+    @Override
+    public void onBackPressed() {
+        //        super.onBackPressed();
+        showQuitConfirmDialog();
+    }
+
+    private void showQuitConfirmDialog() {
+        Dialog dialog = new AlertDialog.Builder(this)
+                //                .setTitle(R.string.quit_msg)
+                .setMessage(R.string.quit_msg)
+                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        finish();
+                    }
+                }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .create();
+        //            dialog.setCancelable(true);
+        //            dialog.setCanceledOnTouchOutside(true);
+        dialog.show();
     }
 }

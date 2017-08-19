@@ -13,12 +13,12 @@ import android.view.SurfaceView;
 import com.cpxiao.R;
 import com.cpxiao.androidutils.library.utils.PreferencesUtils;
 import com.cpxiao.androidutils.library.utils.SoundPoolUtils;
-import com.cpxiao.block1212.Extra;
+import com.cpxiao.block1212.mode.extra.Extra;
 import com.cpxiao.block1212.imp.onGameListener;
 import com.cpxiao.block1212.mode.BaseBlock;
-import com.cpxiao.block1212.mode.BaseBlockData;
+import com.cpxiao.block1212.mode.extra.BaseBlockData;
 import com.cpxiao.block1212.mode.Block;
-import com.cpxiao.gamelib.Config;
+import com.cpxiao.AppConfig;
 
 import java.util.HashMap;
 
@@ -27,7 +27,7 @@ import java.util.HashMap;
  * @author cpxiao on 2015/10/19.
  */
 public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callback, Runnable {
-    private static final boolean DEBUG = Config.DEBUG;
+    private static final boolean DEBUG = AppConfig.DEBUG;
     private static final String TAG = GameSurfaceView.class.getSimpleName();
 
     /**

@@ -1,4 +1,5 @@
 <resources>
+
     <string name="app_name">Block 1212</string>
     <string name="btn_continue">Continue</string>
     <string name="new_game">New Game</string>
@@ -25,5 +26,5 @@
     <string name="settings_on">On</string>
     <string name="settings_off">Off</string>
 
-
+    <string name="quit_msg">Quit the Game ?</string>
 </resources>

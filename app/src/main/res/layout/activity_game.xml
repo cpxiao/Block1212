@@ -1,11 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:background="@color/colorBackgroundDefault"
-              android:gravity="center"
-              android:orientation="vertical">
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackgroundDefault"
+    android:gravity="center"
+    android:orientation="vertical">
 
+    <LinearLayout
+        android:id="@+id/game_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:orientation="horizontal">
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -59,18 +68,9 @@
             android:layout_width="40dp"
             android:layout_height="match_parent"
             android:layout_marginRight="20dp"
+            android:padding="2dp"
             android:src="@drawable/settings"/>
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/game_view"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_gravity="center"
-        android:layout_weight="1"
-        android:orientation="horizontal">
-
-    </LinearLayout>
-
-    <include layout="@layout/layout_ads_50"/>
-</LinearLayout>
+    <include layout="@layout/layout_ads"/>
+</RelativeLayout>
