@@ -1,11 +1,8 @@
 package com.cpxiao.gamelib.activity;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.LinearLayout;
 
 import com.cpxiao.AppConfig;
@@ -13,6 +10,7 @@ import com.cpxiao.R;
 import com.cpxiao.zads.ZAdManager;
 import com.facebook.ads.Ad;
 import com.facebook.ads.AdError;
+import com.facebook.ads.AdSettings;
 import com.facebook.ads.InterstitialAdListener;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
@@ -21,13 +19,19 @@ import com.umeng.analytics.MobclickAgent;
 
 
 /**
- * @author cpxiao on 2017/03/01.
- * @version cpxiao on 2017/08/10 改成使用ZAdsSdk.
- *          cpxiao on 2017/08/19 添加插屏广告
+ * @author cpxiao on 2017/3/1.
+ * @version cpxiao on 2017/8/10     改成使用ZAdsSdk.
+ *          cpxiao on 2017/8/19     添加插屏广告
+ *          cpxiao on 2017/8/24     提取test device
+ *          cpxiao on 2017/8/31     修改继承类
+ *          cpxiao on 2017/9/4     修改继承类, extends BaseAdsActivity
  */
-public class BaseZAdsActivity extends Activity {
+public abstract class BaseZAdsActivity extends BaseAdsActivity {
     protected static final boolean DEBUG = AppConfig.DEBUG;
     protected final String TAG = getClass().getSimpleName();
+
+    protected final String TEST_DEVICE_FB = "";
+    protected final String TEST_DEVICE_ADMOB = "E1E0F81BBFC3DDCC151FE415046C6E40";
 
     private InterstitialAd mAdMobInterstitialAd;
     private com.facebook.ads.InterstitialAd mFbInterstitialAd;
@@ -36,11 +40,11 @@ public class BaseZAdsActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //no title
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-
-        //隐藏状态栏部分（电池电量、时间等部分）
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        //        //no title
+        //        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        //
+        //        //隐藏状态栏部分（电池电量、时间等部分）
+        //        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
     }
 
@@ -62,14 +66,20 @@ public class BaseZAdsActivity extends Activity {
             mFbInterstitialAd.destroy();
             mFbInterstitialAd = null;
         }
+        ZAdManager.getInstance().destroyAllPosition(getApplicationContext());
         super.onDestroy();
     }
 
-    protected void initAds(int zAdPosition) {
+    public void loadZAds(int zAdPosition) {
         LinearLayout layout = (LinearLayout) findViewById(R.id.layout_ads);
         ZAdManager.getInstance().loadAd(getApplicationContext(), zAdPosition, layout);
     }
 
+    /**
+     * 插页广告
+     *
+     * @param unitId id
+     */
     protected void initAdMobInterstitialAd(String unitId) {
         if (TextUtils.isEmpty(unitId)) {
             if (DEBUG) {
@@ -136,7 +146,7 @@ public class BaseZAdsActivity extends Activity {
             if (DEBUG) {
                 adRequest = new AdRequest.Builder()
                         .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)// All emulators
-                        .addTestDevice("67F59060394DB36B95B18F5EE5B5D735")
+                        .addTestDevice(TEST_DEVICE_ADMOB)
                         .build();
             } else {
                 adRequest = new AdRequest.Builder()
@@ -218,7 +228,7 @@ public class BaseZAdsActivity extends Activity {
         }
         if (mFbInterstitialAd != null) {
             if (DEBUG) {
-                //                AdSettings.addTestDevice("");
+                AdSettings.addTestDevice(TEST_DEVICE_FB);
             }
             mFbInterstitialAd.loadAd();
         }

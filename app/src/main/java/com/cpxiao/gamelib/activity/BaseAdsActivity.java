@@ -1,17 +1,15 @@
 package com.cpxiao.gamelib.activity;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.LinearLayout;
 
-import com.cpxiao.R;
 import com.cpxiao.AppConfig;
+import com.cpxiao.R;
+import com.cpxiao.gamelib.activity.core.BaseAppActivity;
 import com.facebook.ads.Ad;
 import com.facebook.ads.AdError;
 import com.facebook.ads.AdListener;
@@ -23,12 +21,17 @@ import com.umeng.analytics.MobclickAgent;
 
 
 /**
- * @author cpxiao on 2016/3/14.
- * @version cpxiao on 2017/7/31 update facebook ad.
+ * @author cpxiao on 2017/3/1.
+ * @version cpxiao on 2017/3/17   更新打印log信息
+ *          cpxiao on 2017/8/24   提取test device
+ *          cpxiao on 2017/8/31   修改继承类
  */
-public class BaseActivity extends AppCompatActivity {
+public abstract class BaseAdsActivity extends BaseAppActivity {
     protected static final boolean DEBUG = AppConfig.DEBUG;
     protected final String TAG = getClass().getSimpleName();
+
+    protected final String TEST_DEVICE_FB = "3bcc341340550569d910c92a2dae2677";
+    protected final String TEST_DEVICE_ADMOB = "67F59060394DB36B95B18F5EE5B5D735";
 
     protected AdView mFbAdView;
     protected com.google.android.gms.ads.AdView mAdMobAdView;
@@ -37,11 +40,11 @@ public class BaseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //no title
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-
-        //隐藏状态栏部分（电池电量、时间等部分）
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        //        //no title
+        //        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        //
+        //        //隐藏状态栏部分（电池电量、时间等部分）
+        //        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
     }
 
@@ -75,11 +78,19 @@ public class BaseActivity extends AppCompatActivity {
         initFbAds(placementId, AdSize.BANNER_HEIGHT_50);
     }
 
+    protected void initFbAds90(String placementId) {
+        initFbAds(placementId, AdSize.BANNER_HEIGHT_90);
+    }
+
     protected void initFbAds250(String placementId) {
         initFbAds(placementId, AdSize.RECTANGLE_HEIGHT_250);
     }
 
     private void initFbAds(String placeId, AdSize adSize) {
+        if (DEBUG) {
+            Log.d(TAG, "initFbAds: ");
+        }
+
         if (TextUtils.isEmpty(placeId)) {
             if (DEBUG) {
                 throw new IllegalArgumentException("placeId is empty!");
@@ -88,18 +99,20 @@ public class BaseActivity extends AppCompatActivity {
         }
 
         mFbAdView = new AdView(this, placeId, adSize);
+
         mFbAdView.setAdListener(new AdListener() {
+
             @Override
-            public void onError(Ad ad, AdError adError) {
+            public void onError(Ad ad, AdError error) {
                 if (DEBUG) {
-                    Log.d(TAG, "onError: " + adError.getErrorCode() + "," + adError.getErrorMessage());
+                    Log.d(TAG, "Fb -> " + "onError: " + error.getErrorCode() + "," + error.getErrorMessage());
                 }
             }
 
             @Override
             public void onAdLoaded(Ad ad) {
                 if (DEBUG) {
-                    Log.d(TAG, "onAdLoaded: ");
+                    Log.d(TAG, "Fb -> " + "onAdLoaded: ");
                 }
                 addToLayout(mFbAdView);
             }
@@ -107,7 +120,7 @@ public class BaseActivity extends AppCompatActivity {
             @Override
             public void onAdClicked(Ad ad) {
                 if (DEBUG) {
-                    Log.d(TAG, "onAdClicked: ");
+                    Log.d(TAG, "Fb -> " + "onAdClicked: ");
                 }
             }
 
@@ -117,16 +130,23 @@ public class BaseActivity extends AppCompatActivity {
                     Log.d(TAG, "onLoggingImpression: ");
                 }
             }
+
         });
         if (DEBUG) {
-            AdSettings.addTestDevice("26ca0f5949f0cdb8fc823066625756dc");//20170731 坚果Pro
+            AdSettings.addTestDevice(TEST_DEVICE_FB);
+
+            //            // 如果想要添加多台测试设备，只需创建一个字符串列表，添加到加载广告前的位置：
+            //            List<String> testDevices = new ArrayList<>();
+            //            testDevices.add("55c4f301d7c1183f1fa6ede6b3f2fe2e");
+            //            testDevices.add("e6298923190b4e7e7119e0f14c44f097");
+            //            AdSettings.addTestDevices(testDevices);
         }
         if (DEBUG) {
             Log.d(TAG, "initFbAds:  mFbAdView.loadAd();");
         }
         mFbAdView.loadAd();
-    }
 
+    }
 
     protected void initAdMobAds50(String placementId) {
         initAdMobAds(placementId, com.google.android.gms.ads.AdSize.SMART_BANNER);
@@ -141,6 +161,10 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     private void initAdMobAds(String unitId, com.google.android.gms.ads.AdSize adSize) {
+        if (DEBUG) {
+            Log.d(TAG, "initAdMobAds: ");
+        }
+
         if (TextUtils.isEmpty(unitId)) {
             if (DEBUG) {
                 throw new IllegalArgumentException("unitId is empty!");
@@ -155,7 +179,7 @@ public class BaseActivity extends AppCompatActivity {
             public void onAdClosed() {
                 super.onAdClosed();
                 if (DEBUG) {
-                    Log.d(TAG, "onAdClosed: ");
+                    Log.d(TAG, "AdMob -> " + "onAdClosed: ");
                 }
 
             }
@@ -164,7 +188,7 @@ public class BaseActivity extends AppCompatActivity {
             public void onAdFailedToLoad(int i) {
                 super.onAdFailedToLoad(i);
                 if (DEBUG) {
-                    Log.d(TAG, "onAdFailedToLoad: i = " + i);
+                    Log.d(TAG, "AdMob -> " + "onAdFailedToLoad: i = " + i);
                 }
             }
 
@@ -172,7 +196,7 @@ public class BaseActivity extends AppCompatActivity {
             public void onAdLeftApplication() {
                 super.onAdLeftApplication();
                 if (DEBUG) {
-                    Log.d(TAG, "onAdLeftApplication: ");
+                    Log.d(TAG, "AdMob -> " + "onAdLeftApplication: ");
                 }
 
             }
@@ -181,7 +205,7 @@ public class BaseActivity extends AppCompatActivity {
             public void onAdOpened() {
                 super.onAdOpened();
                 if (DEBUG) {
-                    Log.d(TAG, "onAdOpened: ");
+                    Log.d(TAG, "AdMob -> " + "onAdOpened: ");
                 }
 
             }
@@ -190,7 +214,7 @@ public class BaseActivity extends AppCompatActivity {
             public void onAdLoaded() {
                 super.onAdLoaded();
                 if (DEBUG) {
-                    Log.d(TAG, "onAdLoaded: ");
+                    Log.d(TAG, "AdMob -> " + "onAdLoaded: ");
                 }
                 addToLayout(mAdMobAdView);
             }
@@ -199,7 +223,7 @@ public class BaseActivity extends AppCompatActivity {
         if (DEBUG) {
             adRequest = new AdRequest.Builder()
                     .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)// All emulators
-                    .addTestDevice("67F59060394DB36B95B18F5EE5B5D735")//20170731 坚果pro
+                    .addTestDevice(TEST_DEVICE_ADMOB)//坚果
                     .build();
         } else {
             adRequest = new AdRequest.Builder()
@@ -213,10 +237,14 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     private void addToLayout(View view) {
+        if (DEBUG) {
+            Log.d(TAG, "addToLayout: ");
+        }
         if (view == null) {
             return;
         }
         removeFromParent(view);
+
         LinearLayout layout = (LinearLayout) findViewById(R.id.layout_ads);
         layout.removeAllViews();
         layout.addView(view);

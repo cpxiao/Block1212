@@ -69,8 +69,8 @@
             android:layout_height="match_parent"
             android:layout_marginRight="20dp"
             android:padding="2dp"
-            android:src="@drawable/settings"/>
+            android:src="@drawable/settings_btn"/>
     </LinearLayout>
 
-    <include layout="@layout/layout_ads"/>
+    <!--<include layout="@layout/layout_ads"/>-->
 </RelativeLayout>

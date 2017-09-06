@@ -73,5 +73,5 @@
             android:text="@string/quit"/>
     </LinearLayout>
 
-    <include layout="@layout/layout_ads"/>
+    <!--<include layout="@layout/layout_ads"/>-->
 </RelativeLayout>

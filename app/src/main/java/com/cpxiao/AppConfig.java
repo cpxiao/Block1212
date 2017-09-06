@@ -7,7 +7,7 @@ public class AppConfig {
     /**
      * debug
      */
-//    public static final boolean DEBUG = BuildConfig.DEBUG;
-        public static final boolean DEBUG = false;
+    public static final boolean DEBUG = BuildConfig.DEBUG;
+//        public static final boolean DEBUG = false;
 
 }

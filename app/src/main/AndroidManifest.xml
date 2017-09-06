@@ -23,7 +23,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity
-            android:name="com.cpxiao.block1212.activity.HomeActivity"
+            android:name="com.cpxiao.block1212.activity.MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -32,13 +32,13 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name="com.cpxiao.block1212.activity.GameActivity"
-            android:screenOrientation="portrait"/>
-
-        <activity
-            android:name="com.cpxiao.block1212.activity.SettingsActivity"
-            android:screenOrientation="portrait"/>
+        <!--<activity-->
+            <!--android:name="com.cpxiao.block1212.activity.GameActivity"-->
+            <!--android:screenOrientation="portrait"/>-->
+<!---->
+        <!--<activity-->
+            <!--android:name="com.cpxiao.block1212.activity.SettingsActivity"-->
+            <!--android:screenOrientation="portrait"/>-->
 
         <meta-data
             android:name="UMENG_APPKEY"

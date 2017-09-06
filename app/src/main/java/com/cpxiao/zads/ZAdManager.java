@@ -67,10 +67,13 @@ public class ZAdManager {
      * 清空所有广告，包含缓存广告
      */
     public void destroyAllPosition(Context context) {
+        destroy(context, ZAdPosition.POSITION_MAIN);
         destroy(context, ZAdPosition.POSITION_HOME);
         destroy(context, ZAdPosition.POSITION_GAME);
-        destroy(context, ZAdPosition.POSITION_LEVEL_LIST);
         destroy(context, ZAdPosition.POSITION_SETTINGS);
+        destroy(context, ZAdPosition.POSITION_LEVEL_LIST);
+        destroy(context, ZAdPosition.POSITION_BEST_SCORE);
+        destroy(context, ZAdPosition.POSITION_TEST);
 
         System.gc();
     }
@@ -81,6 +84,9 @@ public class ZAdManager {
      * @param position 广告位
      */
     public void destroy(Context context, int position) {
+        if (DEBUG) {
+            Log.d(TAG, "destroy: position = " + position);
+        }
         if (mLoadedAdViewArrayMap == null) {
             if (DEBUG) {
                 String msg = "destroy: param error! mLoadedAdViewArrayMap == null";

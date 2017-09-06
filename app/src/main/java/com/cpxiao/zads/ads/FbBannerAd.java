@@ -28,6 +28,7 @@ import java.util.Queue;
  */
 public class FbBannerAd extends BaseZAd {
     private static final String TAG = "FbBannerAd";
+    private static final String TEST_DEVICE = "3bcc341340550569d910c92a2dae2677";
 
     private AdView mAdManager;
 
@@ -97,7 +98,7 @@ public class FbBannerAd extends BaseZAd {
 
             // 如果想要添加多台测试设备，只需创建一个字符串列表，添加到加载广告前的位置：
             List<String> testDevices = new ArrayList<>();
-            testDevices.add("37d6f63e9a828b876eda13efa16483c8");
+            testDevices.add(TEST_DEVICE);
             AdSettings.addTestDevices(testDevices);
         }
         mAdManager.loadAd();

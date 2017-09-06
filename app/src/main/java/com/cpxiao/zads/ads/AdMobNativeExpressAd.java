@@ -24,6 +24,7 @@ import java.util.Queue;
  */
 public class AdMobNativeExpressAd extends BaseZAd {
     private static final String TAG = "AdMobNativeExpressAd";
+    private static final String TEST_DEVICE = "3bcc341340550569d910c92a2dae2677";
 
     private NativeExpressAdView mAdManager;
 
@@ -93,7 +94,7 @@ public class AdMobNativeExpressAd extends BaseZAd {
         if (DEBUG) {
             adRequest = new AdRequest.Builder()
                     .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)// All emulators
-                    .addTestDevice("67F59060394DB36B95B18F5EE5B5D735")
+                    .addTestDevice(TEST_DEVICE)
                     .build();
         } else {
             adRequest = new AdRequest.Builder()
