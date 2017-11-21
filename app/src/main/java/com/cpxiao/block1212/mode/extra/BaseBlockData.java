@@ -7,7 +7,7 @@ import java.util.Random;
  */
 public final class BaseBlockData {
     public static final int ROW_NUM = 5;
-    private static Random random = new Random();
+    private static final Random random = new Random();
 
     private BaseBlockData() {
     }
@@ -442,16 +442,16 @@ public final class BaseBlockData {
     };
 
     public static int[][] getBaseData(int gameDifficulty) {
-        if (gameDifficulty == Extra.GameDifficulty.EASY) {
+        if (gameDifficulty == GameDifficulty.EASY) {
             int tmp = random.nextInt(BaseBlockData.BASE_DATA_EASY.length);
             return BaseBlockData.BASE_DATA_EASY[tmp];
-        } else if (gameDifficulty == Extra.GameDifficulty.NORMAL) {
+        } else if (gameDifficulty == GameDifficulty.NORMAL) {
             int tmp = random.nextInt(BaseBlockData.BASE_DATA_NORMAL.length);
             return BaseBlockData.BASE_DATA_NORMAL[tmp];
-        } else if (gameDifficulty == Extra.GameDifficulty.HARD) {
+        } else if (gameDifficulty == GameDifficulty.HARD) {
             int tmp = random.nextInt(BaseBlockData.BASE_DATA_HARD.length);
             return BaseBlockData.BASE_DATA_HARD[tmp];
-        } else if (gameDifficulty == Extra.GameDifficulty.INSANE) {
+        } else if (gameDifficulty == GameDifficulty.INSANE) {
             int tmp = random.nextInt(BaseBlockData.BASE_DATA_INSANE.length);
             return BaseBlockData.BASE_DATA_INSANE[tmp];
         }

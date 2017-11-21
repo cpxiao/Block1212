@@ -6,7 +6,8 @@
 .DS_Store
 /build
 /captures
+
 .idea
 gradlew*
-
 *.apk
+_*

@@ -6,6 +6,7 @@ import com.cpxiao.block1212.fragment.HomeFragment;
 import com.cpxiao.gamelib.activity.BaseZAdsActivity;
 import com.cpxiao.gamelib.fragment.BaseFragment;
 import com.cpxiao.zads.ZAdManager;
+import com.cpxiao.zads.core.ZAdPosition;
 
 public class MainActivity extends BaseZAdsActivity {
 
@@ -24,6 +25,12 @@ public class MainActivity extends BaseZAdsActivity {
     private void loadAds() {
         initAdMobAds100("ca-app-pub-4157365005379790/7206106952");
         initFbAds90("236636880101032_352570365174349");
-        //        loadZAds(ZAdPosition.POSITION_MAIN);
+        loadZAds(ZAdPosition.POSITION_MAIN);
+    }
+
+    @Override
+    protected void onDestroy() {
+        ZAdManager.getInstance().destroyAllPosition(getApplicationContext());
+        super.onDestroy();
     }
 }

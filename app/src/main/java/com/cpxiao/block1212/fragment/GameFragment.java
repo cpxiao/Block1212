@@ -12,6 +12,7 @@ import com.cpxiao.androidutils.library.utils.MediaPlayerUtils;
 import com.cpxiao.androidutils.library.utils.PreferencesUtils;
 import com.cpxiao.block1212.imp.onGameListener;
 import com.cpxiao.block1212.mode.extra.Extra;
+import com.cpxiao.block1212.mode.extra.GameDifficulty;
 import com.cpxiao.block1212.views.GameSurfaceView;
 import com.cpxiao.block1212.views.dialog.GameOverDialog;
 import com.cpxiao.block1212.views.dialog.SettingsDialog;
@@ -72,7 +73,7 @@ public class GameFragment extends BaseZAdsFragment implements onGameListener {
             return;
         }
         boolean isNewGame = bundle.getBoolean(Extra.Name.INTENT_NAME_IS_NEW_GAME, true);
-        mGameDifficulty = bundle.getInt(Extra.Name.INTENT_NAME_DIFFICULTY, Extra.GameDifficulty.DEFAULT);
+        mGameDifficulty = bundle.getInt(Extra.Name.INTENT_NAME_DIFFICULTY, GameDifficulty.DEFAULT);
 
         mGameModeView = (TextView) view.findViewById(R.id.game_mode);
         setGameModeView(mGameDifficulty);
@@ -127,6 +128,7 @@ public class GameFragment extends BaseZAdsFragment implements onGameListener {
     }
 
     private void initGameView(boolean isNewGame) {
+        loadZAds(ZAdPosition.POSITION_GAME);
         Context context = getHoldingActivity();
         layout.removeAllViews();
         mGameSurfaceView = new GameSurfaceView(context, 12, isNewGame, mGameDifficulty);
@@ -136,13 +138,13 @@ public class GameFragment extends BaseZAdsFragment implements onGameListener {
 
     private void setGameModeView(int gameDifficulty) {
         String text = "";
-        if (gameDifficulty == Extra.GameDifficulty.EASY) {
+        if (gameDifficulty == GameDifficulty.EASY) {
             text = getResources().getString(R.string.easy);
-        } else if (gameDifficulty == Extra.GameDifficulty.NORMAL) {
+        } else if (gameDifficulty == GameDifficulty.NORMAL) {
             text = getResources().getString(R.string.normal);
-        } else if (gameDifficulty == Extra.GameDifficulty.HARD) {
+        } else if (gameDifficulty == GameDifficulty.HARD) {
             text = getResources().getString(R.string.hard);
-        } else if (gameDifficulty == Extra.GameDifficulty.INSANE) {
+        } else if (gameDifficulty == GameDifficulty.INSANE) {
             text = getResources().getString(R.string.insane);
         }
         text = text + " " + getResources().getString(R.string.mode);
@@ -162,24 +164,24 @@ public class GameFragment extends BaseZAdsFragment implements onGameListener {
     private void updateBestScore(int score, int gameDifficulty) {
         Context context = getHoldingActivity();
         int bestScore = 0;
-        if (gameDifficulty == Extra.GameDifficulty.EASY) {
+        if (gameDifficulty == GameDifficulty.EASY) {
             bestScore = PreferencesUtils.getInt(context, Extra.Key.KEY_BEST_SCORE_EASY, 0);
-        } else if (gameDifficulty == Extra.GameDifficulty.NORMAL) {
+        } else if (gameDifficulty == GameDifficulty.NORMAL) {
             bestScore = PreferencesUtils.getInt(context, Extra.Key.KEY_BEST_SCORE_NORMAL, 0);
-        } else if (gameDifficulty == Extra.GameDifficulty.HARD) {
+        } else if (gameDifficulty == GameDifficulty.HARD) {
             bestScore = PreferencesUtils.getInt(context, Extra.Key.KEY_BEST_SCORE_HARD, 0);
-        } else if (gameDifficulty == Extra.GameDifficulty.INSANE) {
+        } else if (gameDifficulty == GameDifficulty.INSANE) {
             bestScore = PreferencesUtils.getInt(context, Extra.Key.KEY_BEST_SCORE_INSANE, 0);
         }
         if (score > bestScore) {
             bestScore = score;
-            if (gameDifficulty == Extra.GameDifficulty.EASY) {
+            if (gameDifficulty == GameDifficulty.EASY) {
                 PreferencesUtils.putInt(context, Extra.Key.KEY_BEST_SCORE_EASY, score);
-            } else if (gameDifficulty == Extra.GameDifficulty.NORMAL) {
+            } else if (gameDifficulty == GameDifficulty.NORMAL) {
                 PreferencesUtils.putInt(context, Extra.Key.KEY_BEST_SCORE_NORMAL, score);
-            } else if (gameDifficulty == Extra.GameDifficulty.HARD) {
+            } else if (gameDifficulty == GameDifficulty.HARD) {
                 PreferencesUtils.putInt(context, Extra.Key.KEY_BEST_SCORE_HARD, score);
-            } else if (gameDifficulty == Extra.GameDifficulty.INSANE) {
+            } else if (gameDifficulty == GameDifficulty.INSANE) {
                 PreferencesUtils.putInt(context, Extra.Key.KEY_BEST_SCORE_INSANE, score);
             }
         }

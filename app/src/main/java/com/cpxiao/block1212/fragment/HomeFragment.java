@@ -4,9 +4,12 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import com.cpxiao.R;
-import com.cpxiao.block1212.mode.extra.Extra;
+import com.cpxiao.androidutils.library.utils.RateAppUtils;
+import com.cpxiao.androidutils.library.utils.ShareAppUtils;
+import com.cpxiao.block1212.mode.extra.GameDifficulty;
 import com.cpxiao.block1212.views.dialog.BestScoreDialog;
 import com.cpxiao.gamelib.fragment.BaseZAdsFragment;
 import com.cpxiao.zads.core.ZAdPosition;
@@ -32,17 +35,19 @@ public class HomeFragment extends BaseZAdsFragment implements View.OnClickListen
         Button btnNormal = (Button) view.findViewById(R.id.btn_normal);
         Button btnHard = (Button) view.findViewById(R.id.btn_hard);
         Button btnInsane = (Button) view.findViewById(R.id.btn_insane);
-        Button btnBestScore = (Button) view.findViewById(R.id.btn_best_score);
-        Button btnSettings = (Button) view.findViewById(R.id.btn_settings);
-        Button btnQuit = (Button) view.findViewById(R.id.btn_quit);
+        ImageButton btnRateApp = (ImageButton) view.findViewById(R.id.btn_rate_app);
+        ImageButton btnShare = (ImageButton) view.findViewById(R.id.btn_share);
+        ImageButton btnBestScore = (ImageButton) view.findViewById(R.id.btn_best_score);
+        ImageButton btnSettings = (ImageButton) view.findViewById(R.id.btn_settings);
 
         btnEasy.setOnClickListener(this);
         btnNormal.setOnClickListener(this);
         btnHard.setOnClickListener(this);
         btnInsane.setOnClickListener(this);
+        btnRateApp.setOnClickListener(this);
+        btnShare.setOnClickListener(this);
         btnBestScore.setOnClickListener(this);
         btnSettings.setOnClickListener(this);
-        btnQuit.setOnClickListener(this);
     }
 
     @Override
@@ -55,52 +60,42 @@ public class HomeFragment extends BaseZAdsFragment implements View.OnClickListen
         int id = v.getId();
         Context context = getHoldingActivity();
         if (id == R.id.btn_easy) {
-
-            //            Bundle bundle = GameActivity.makeBundle(true, Extra.GameDifficulty.EASY);
-            //            Intent intent = GameActivity.makeIntent(context, bundle);
-            //            startActivity(intent);
-            Bundle bundle = GameFragment.makeBundle(true, Extra.GameDifficulty.EASY);
+            Bundle bundle = GameFragment.makeBundle(true, GameDifficulty.EASY);
             addFragment(GameFragment.newInstance(bundle));
-
         } else if (id == R.id.btn_normal) {
-            //            Bundle bundle = GameActivity.makeBundle(true, Extra.GameDifficulty.NORMAL);
-            //            Intent intent = GameActivity.makeIntent(context, bundle);
-            //            startActivity(intent);
-            Bundle bundle = GameFragment.makeBundle(true, Extra.GameDifficulty.NORMAL);
+            Bundle bundle = GameFragment.makeBundle(true, GameDifficulty.NORMAL);
             addFragment(GameFragment.newInstance(bundle));
         } else if (id == R.id.btn_hard) {
-            //            Bundle bundle = GameActivity.makeBundle(true, Extra.GameDifficulty.HARD);
-            //            Intent intent = GameActivity.makeIntent(context, bundle);
-            //            startActivity(intent);
-
-            Bundle bundle = GameFragment.makeBundle(true, Extra.GameDifficulty.HARD);
+            Bundle bundle = GameFragment.makeBundle(true, GameDifficulty.HARD);
             addFragment(GameFragment.newInstance(bundle));
         } else if (id == R.id.btn_insane) {
-            //            Bundle bundle = GameActivity.makeBundle(true, Extra.GameDifficulty.INSANE);
-            //            Intent intent = GameActivity.makeIntent(context, bundle);
-            //            startActivity(intent);
-
-            Bundle bundle = GameFragment.makeBundle(true, Extra.GameDifficulty.INSANE);
+            Bundle bundle = GameFragment.makeBundle(true, GameDifficulty.INSANE);
             addFragment(GameFragment.newInstance(bundle));
+        } else if (id == R.id.btn_rate_app) {
+            RateAppUtils.rate(context);
+        } else if (id == R.id.btn_share) {
+            String msg = getString(R.string.share_msg) + "\n" +
+                    getString(R.string.app_name) + "\n" +
+                    "https://play.google.com/store/apps/details?id=" + context.getPackageName();
+            ShareAppUtils.share(context,getString(R.string.share), msg);
         } else if (id == R.id.btn_best_score) {
-            final BestScoreDialog dialog = new BestScoreDialog(context);
-            dialog.setButtonOK(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    dialog.dismiss();
-                }
-            });
-            dialog.setCanceledOnTouchOutside(true);
-            dialog.setCancelable(true);
-            dialog.show();
+            showBestScoreDialog(context);
         } else if (id == R.id.btn_settings) {
-
-            //            Intent intent = SettingsFragment.makeIntent(context, null);
-            //            startActivity(intent);
-
             addFragment(SettingsFragment.newInstance(null));
-        } else if (id == R.id.btn_quit) {
-            removeFragment();
         }
     }
+
+    private void showBestScoreDialog(Context context) {
+        final BestScoreDialog dialog = new BestScoreDialog(context);
+        dialog.setButtonOK(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.setCanceledOnTouchOutside(true);
+        dialog.setCancelable(true);
+        dialog.show();
+    }
+
 }

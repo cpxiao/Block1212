@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.cpxiao.AppConfig;
 import com.cpxiao.R;
 import com.cpxiao.zads.ads.core.Advertisement;
 import com.cpxiao.zads.ads.core.BaseZAd;
@@ -24,7 +25,7 @@ import java.util.Queue;
  */
 public class AdMobNativeExpressAd extends BaseZAd {
     private static final String TAG = "AdMobNativeExpressAd";
-    private static final String TEST_DEVICE = "3bcc341340550569d910c92a2dae2677";
+    private static final String TEST_DEVICE = AppConfig.TEST_DEVICE_ADMOB;
 
     private NativeExpressAdView mAdManager;
 
