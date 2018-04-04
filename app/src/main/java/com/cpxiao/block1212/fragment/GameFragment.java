@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.cpxiao.R;
 import com.cpxiao.androidutils.library.utils.MediaPlayerUtils;
 import com.cpxiao.androidutils.library.utils.PreferencesUtils;
+import com.cpxiao.androidutils.library.utils.ThreadUtils;
 import com.cpxiao.block1212.imp.onGameListener;
 import com.cpxiao.block1212.mode.extra.Extra;
 import com.cpxiao.block1212.mode.extra.GameDifficulty;
@@ -18,8 +19,6 @@ import com.cpxiao.block1212.views.dialog.GameOverDialog;
 import com.cpxiao.block1212.views.dialog.SettingsDialog;
 import com.cpxiao.gamelib.fragment.BaseZAdsFragment;
 import com.cpxiao.zads.core.ZAdPosition;
-
-import static com.google.android.gms.internal.zzail.runOnUiThread;
 
 /**
  * @author cpxiao on 2017/09/06.
@@ -191,7 +190,7 @@ public class GameFragment extends BaseZAdsFragment implements onGameListener {
 
     @Override
     public void onScoreChange(final int score) {
-        runOnUiThread(new Runnable() {
+        ThreadUtils.getInstance().runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 setScoreView(score);
@@ -203,7 +202,7 @@ public class GameFragment extends BaseZAdsFragment implements onGameListener {
     @Override
     public void onGameOver() {
         final Context context = getHoldingActivity();
-        runOnUiThread(new Runnable() {
+        ThreadUtils.getInstance().runOnUiThread(new Runnable() {
             @Override
             public void run() {
 

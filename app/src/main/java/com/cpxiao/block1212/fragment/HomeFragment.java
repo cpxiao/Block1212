@@ -31,14 +31,14 @@ public class HomeFragment extends BaseZAdsFragment implements View.OnClickListen
     protected void initView(View view, Bundle savedInstanceState) {
         loadZAds(ZAdPosition.POSITION_HOME);
 
-        Button btnEasy = (Button) view.findViewById(R.id.btn_easy);
-        Button btnNormal = (Button) view.findViewById(R.id.btn_normal);
-        Button btnHard = (Button) view.findViewById(R.id.btn_hard);
-        Button btnInsane = (Button) view.findViewById(R.id.btn_insane);
-        ImageButton btnRateApp = (ImageButton) view.findViewById(R.id.btn_rate_app);
-        ImageButton btnShare = (ImageButton) view.findViewById(R.id.btn_share);
-        ImageButton btnBestScore = (ImageButton) view.findViewById(R.id.btn_best_score);
-        ImageButton btnSettings = (ImageButton) view.findViewById(R.id.btn_settings);
+        Button btnEasy = view.findViewById(R.id.btn_easy);
+        Button btnNormal = view.findViewById(R.id.btn_normal);
+        Button btnHard = view.findViewById(R.id.btn_hard);
+        Button btnInsane = view.findViewById(R.id.btn_insane);
+        ImageButton btnRateApp = view.findViewById(R.id.btn_rate_app);
+        ImageButton btnShare = view.findViewById(R.id.btn_share);
+        ImageButton btnBestScore = view.findViewById(R.id.btn_best_score);
+        ImageButton btnSettings = view.findViewById(R.id.btn_settings);
 
         btnEasy.setOnClickListener(this);
         btnNormal.setOnClickListener(this);
