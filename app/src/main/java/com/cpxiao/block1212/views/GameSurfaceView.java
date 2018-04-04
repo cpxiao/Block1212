@@ -86,19 +86,19 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 
     private GameSurfaceView(Context context) {
         super(context);
-        init(context, true);
+        init(context);
     }
 
-    public GameSurfaceView(Context context, int gameType, boolean isNewGame, int gameDifficulty) {
+    public GameSurfaceView(Context context, int gameType, int gameDifficulty) {
         super(context);
         mContext = context;
         mGameType = gameType;
         mGameDifficulty = gameDifficulty;
-        init(context, isNewGame);
+        init(context);
     }
 
 
-    private void init(Context c, boolean isNewGame) {
+    private void init(Context c) {
         initSound(c);
 
         //实例SurfaceHolder
@@ -128,56 +128,8 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
         SoundPoolUtils.getInstance().loadSound(context, map);
     }
 
-    private void initBlocks(String data) {
-        if (data == null) {
-            return;
-        }
-        String[] tmp = data.split(";");
-        if (tmp.length != mGameType * mGameType) {
-            return;
-        }
-
-        mBlockStore = new Block[mGameType][mGameType];
-        int x, y;
-        for (int i = 0; i < tmp.length; i++) {
-            x = i % mGameType;
-            y = i / mGameType;
-            Block tmpBlock = new Block(getContext());
-            String[] tmp2 = tmp[i].split(",");
-            if (tmp2.length != 2) {
-                mBlockStore = null;
-                return;
-            }
-            tmpBlock.mData = Integer.valueOf(tmp2[0]);
-            tmpBlock.mColor = Integer.valueOf(tmp2[1]);
-
-            mBlockStore[y][x] = tmpBlock;
-        }
-    }
-
     public void setOnGameListener(onGameListener listener) {
         mGameListener = listener;
-    }
-
-    public void save() {
-        saveScore();
-        saveBlocks();
-    }
-
-    private void saveScore() {
-    }
-
-    private void saveBlocks() {
-        StringBuilder tmp = new StringBuilder();
-        for (int i = 0; i < mGameType; i++) {
-            for (int j = 0; j < mGameType; j++) {
-                if (i == mGameType && j == mGameType) {
-                    tmp.append(mBlockStore[i][j].mData).append(",").append(mBlockStore[i][j].mColor);
-                } else {
-                    tmp.append(mBlockStore[i][j].mData).append(",").append(mBlockStore[i][j].mColor).append(";");
-                }
-            }
-        }
     }
 
 
@@ -199,11 +151,6 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
         }
     }
 
-    public void restart(Context c) {
-        init(c, true);
-        thread_over_flag = false;
-        myDraw();
-    }
 
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
@@ -370,6 +317,7 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
      * 当前点击坐标位置
      */
     float eventX, eventY;
+
     /**
      * 当前点击位置与baseBlock左上角的差值
      */
@@ -608,4 +556,6 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
     }
 
 
+    public void save() {
+    }
 }

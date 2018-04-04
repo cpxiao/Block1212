@@ -60,16 +60,16 @@ public class HomeFragment extends BaseZAdsFragment implements View.OnClickListen
         int id = v.getId();
         Context context = getHoldingActivity();
         if (id == R.id.btn_easy) {
-            Bundle bundle = GameFragment.makeBundle(true, GameDifficulty.EASY);
+            Bundle bundle = GameFragment.makeBundle(GameDifficulty.EASY);
             addFragment(GameFragment.newInstance(bundle));
         } else if (id == R.id.btn_normal) {
-            Bundle bundle = GameFragment.makeBundle(true, GameDifficulty.NORMAL);
+            Bundle bundle = GameFragment.makeBundle(GameDifficulty.NORMAL);
             addFragment(GameFragment.newInstance(bundle));
         } else if (id == R.id.btn_hard) {
-            Bundle bundle = GameFragment.makeBundle(true, GameDifficulty.HARD);
+            Bundle bundle = GameFragment.makeBundle(GameDifficulty.HARD);
             addFragment(GameFragment.newInstance(bundle));
         } else if (id == R.id.btn_insane) {
-            Bundle bundle = GameFragment.makeBundle(true, GameDifficulty.INSANE);
+            Bundle bundle = GameFragment.makeBundle(GameDifficulty.INSANE);
             addFragment(GameFragment.newInstance(bundle));
         } else if (id == R.id.btn_rate_app) {
             RateAppUtils.rate(context);
@@ -77,7 +77,7 @@ public class HomeFragment extends BaseZAdsFragment implements View.OnClickListen
             String msg = getString(R.string.share_msg) + "\n" +
                     getString(R.string.app_name) + "\n" +
                     "https://play.google.com/store/apps/details?id=" + context.getPackageName();
-            ShareAppUtils.share(context,getString(R.string.share), msg);
+            ShareAppUtils.share(context, getString(R.string.share), msg);
         } else if (id == R.id.btn_best_score) {
             showBestScoreDialog(context);
         } else if (id == R.id.btn_settings) {

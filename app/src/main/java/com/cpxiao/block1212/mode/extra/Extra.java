@@ -18,7 +18,6 @@ public final class Extra {
      * Intent或Bundle的name
      */
     public static final class Name {
-        public static final String INTENT_NAME_IS_NEW_GAME = "INTENT_NAME_IS_NEW_GAME";
         public static final String INTENT_NAME_DIFFICULTY = "INTENT_NAME_DIFFICULTY";
 
     }

@@ -71,20 +71,19 @@ public class GameFragment extends BaseZAdsFragment implements onGameListener {
             }
             return;
         }
-        boolean isNewGame = bundle.getBoolean(Extra.Name.INTENT_NAME_IS_NEW_GAME, true);
         mGameDifficulty = bundle.getInt(Extra.Name.INTENT_NAME_DIFFICULTY, GameDifficulty.DEFAULT);
 
-        mGameModeView = (TextView) view.findViewById(R.id.game_mode);
+        mGameModeView = view.findViewById(R.id.game_mode);
         setGameModeView(mGameDifficulty);
 
-        mScoreView = (TextView) view.findViewById(R.id.score);
-        mBestScoreView = (TextView) view.findViewById(R.id.best);
+        mScoreView = view.findViewById(R.id.score);
+        mBestScoreView = view.findViewById(R.id.best);
         setScoreView(0);
 
         updateBestScore(0, mGameDifficulty);
 
         //设置
-        ImageView settingsView = (ImageView) view.findViewById(R.id.btn_settings);
+        ImageView settingsView = view.findViewById(R.id.btn_settings);
         settingsView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -94,8 +93,8 @@ public class GameFragment extends BaseZAdsFragment implements onGameListener {
                 dialog.show();
             }
         });
-        layout = (LinearLayout) view.findViewById(R.id.game_view);
-        initGameView(isNewGame);
+        layout = view.findViewById(R.id.game_view);
+        initGameView();
     }
 
     @Override
@@ -126,11 +125,11 @@ public class GameFragment extends BaseZAdsFragment implements onGameListener {
         MediaPlayerUtils.getInstance().stop();
     }
 
-    private void initGameView(boolean isNewGame) {
+    private void initGameView() {
         loadZAds(ZAdPosition.POSITION_GAME);
         Context context = getHoldingActivity();
         layout.removeAllViews();
-        mGameSurfaceView = new GameSurfaceView(context, 12, isNewGame, mGameDifficulty);
+        mGameSurfaceView = new GameSurfaceView(context, 12, mGameDifficulty);
         mGameSurfaceView.setOnGameListener(this);
         layout.addView(mGameSurfaceView);
     }
@@ -213,7 +212,7 @@ public class GameFragment extends BaseZAdsFragment implements onGameListener {
                     public void onClick(View v) {
                         dialog.dismiss();
                         setScoreView(0);
-                        initGameView(true);
+                        initGameView();
                     }
                 });
                 dialog.setButtonCancel(new View.OnClickListener() {
@@ -230,9 +229,8 @@ public class GameFragment extends BaseZAdsFragment implements onGameListener {
     }
 
 
-    public static Bundle makeBundle(boolean newGame, int gameDifficulty) {
+    public static Bundle makeBundle(int gameDifficulty) {
         Bundle bundle = new Bundle();
-        bundle.putBoolean(Extra.Name.INTENT_NAME_IS_NEW_GAME, newGame);
         bundle.putInt(Extra.Name.INTENT_NAME_DIFFICULTY, gameDifficulty);
         return bundle;
     }
